@@ -16,13 +16,6 @@ public class IdentifiableDAOHibernate extends GenericHibernateDAO<Identifiable> 
 	}
 
 	@Override
-	public Identifiable getById( final String urn, final boolean lock )
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Identifiable> getAll()
 	{
 		@SuppressWarnings( "unchecked" )

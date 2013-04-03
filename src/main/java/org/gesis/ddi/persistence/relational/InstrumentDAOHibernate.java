@@ -15,13 +15,6 @@ public class InstrumentDAOHibernate extends GenericHibernateDAO<Instrument> impl
 	}
 
 	@Override
-	public Instrument getById( final String urn, final boolean lock )
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Instrument> getAll()
 	{
 		// TODO Auto-generated method stub

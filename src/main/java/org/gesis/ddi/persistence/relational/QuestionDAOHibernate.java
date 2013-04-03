@@ -15,13 +15,6 @@ public class QuestionDAOHibernate extends GenericHibernateDAO<Question> implemen
 	}
 
 	@Override
-	public Question getById( final String urn, final boolean lock )
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Question> getAll()
 	{
 

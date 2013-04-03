@@ -15,13 +15,6 @@ public class UniverseDAOHibernate extends GenericHibernateDAO<Universe> implemen
 	}
 
 	@Override
-	public Universe getById( final String urn, final boolean lock )
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Universe> getAll()
 	{
 		// TODO Auto-generated method stub

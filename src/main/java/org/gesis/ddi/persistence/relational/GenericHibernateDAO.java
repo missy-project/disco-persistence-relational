@@ -4,6 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -59,7 +60,11 @@ public abstract class GenericHibernateDAO<T>
 	}
 
 	@Transactional
-	public abstract T getById( String urn, boolean lock );
+	public T getById( final String urn, final boolean lock )
+	{
+		T entity = getHibernateTemplate().get( getPersistenceClass(), urn, lock ? LockMode.READ : LockMode.NONE );
+		return entity;
+	}
 
 	@Transactional
 	public abstract List<T> getAll();

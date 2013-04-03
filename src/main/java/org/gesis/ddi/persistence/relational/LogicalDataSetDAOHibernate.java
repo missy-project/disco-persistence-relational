@@ -16,13 +16,6 @@ public class LogicalDataSetDAOHibernate extends GenericHibernateDAO<LogicalDataS
 	}
 
 	@Override
-	public LogicalDataSet getById( final String urn, final boolean lock )
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<LogicalDataSet> getAll()
 	{
 		@SuppressWarnings( "unchecked" )

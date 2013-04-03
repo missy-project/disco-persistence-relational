@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.gesis.ddi.ontology.Variable;
 import org.gesis.ddi.persistence.dataAccess.VariableDAO;
-import org.hibernate.LockMode;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
@@ -19,13 +18,6 @@ public class VariableDAOHibernate extends GenericHibernateDAO<Variable> implemen
 	{
 		super( hibernateTemplate );
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public Variable getById( final String urn, final boolean lock )
-	{
-		Variable entity = getHibernateTemplate().get( Variable.class, urn, lock ? LockMode.READ : LockMode.NONE );
-		return entity;
 	}
 
 	@Override

@@ -15,13 +15,6 @@ public class DataFileDAOHibernate extends GenericHibernateDAO<DataFile> implemen
 	}
 
 	@Override
-	public DataFile getById( final String urn, final boolean lock )
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<DataFile> getAll() {
 		@SuppressWarnings( "unchecked" )
 		List<DataFile> dataFiles = getHibernateTemplate().find( "from DataFile" );

@@ -16,13 +16,6 @@ public class ConceptDAOHibernate extends GenericHibernateDAO<Concept> implements
 	}
 
 	@Override
-	public Concept getById( final String urn, final boolean lock )
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Concept> getAll()
 	{
 		@SuppressWarnings( "unchecked" )
