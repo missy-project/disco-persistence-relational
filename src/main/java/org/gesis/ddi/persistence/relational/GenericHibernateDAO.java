@@ -100,7 +100,7 @@ public abstract class GenericHibernateDAO<T>
 	@Transactional
 	public boolean delete( final T entity )
 	{
-		// TODO Auto-generated method stub
-		return false;
+		getHibernateTemplate().delete( entity );
+		return true;
 	}
 }
