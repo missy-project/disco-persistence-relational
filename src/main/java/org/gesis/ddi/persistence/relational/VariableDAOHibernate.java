@@ -17,7 +17,6 @@ public class VariableDAOHibernate extends GenericHibernateDAO<Variable> implemen
 	public VariableDAOHibernate( final HibernateTemplate hibernateTemplate )
 	{
 		super( hibernateTemplate );
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
