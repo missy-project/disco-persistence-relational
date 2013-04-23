@@ -8,6 +8,12 @@ import org.gesis.ddi.persistence.dataAccess.CategoryStatisticsDAO;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Hibernate implementation for CategoryStatistics.
+ * 
+ * @author matthaeus
+ * 
+ */
 public class CategoryStatisticsDAOHibernate extends GenericHibernateDAO<CategoryStatistics> implements CategoryStatisticsDAO
 {
 

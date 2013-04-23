@@ -8,6 +8,12 @@ import org.gesis.ddi.persistence.dataAccess.DataFileDAO;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Hibernate implementation for DataFile.
+ * 
+ * @author matthaeus
+ * 
+ */
 public class DataFileDAOHibernate extends GenericHibernateDAO<DataFile> implements DataFileDAO
 {
 

@@ -8,6 +8,12 @@ import org.gesis.ddi.persistence.dataAccess.AnalysisUnitDAO;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Hibernate implementation for AnalysisUnit.
+ * 
+ * @author matthaeus
+ * 
+ */
 public class AnalysisUnitDAOHibernate extends GenericHibernateDAO<AnalysisUnit> implements AnalysisUnitDAO
 {
 
