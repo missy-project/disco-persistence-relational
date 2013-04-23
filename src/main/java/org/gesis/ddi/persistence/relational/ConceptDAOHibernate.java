@@ -18,8 +18,7 @@ public class ConceptDAOHibernate extends GenericHibernateDAO<Concept> implements
 	@Override
 	public List<Concept> getAll()
 	{
-		@SuppressWarnings( "unchecked" )
-		List<Concept> concepts = getHibernateTemplate().find( "from Concept" );
+		List<Concept> concepts = getHibernateTemplate().loadAll( getPersistenceClass() );
 
 		if ( concepts == null )
 			return Collections.emptyList();

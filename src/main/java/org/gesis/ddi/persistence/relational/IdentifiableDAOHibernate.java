@@ -6,6 +6,7 @@ import java.util.List;
 import org.gesis.ddi.Identifiable;
 import org.gesis.ddi.persistence.dataAccess.IdentifiableDAO;
 import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 public class IdentifiableDAOHibernate extends GenericHibernateDAO<Identifiable> implements IdentifiableDAO
 {
@@ -16,15 +17,15 @@ public class IdentifiableDAOHibernate extends GenericHibernateDAO<Identifiable> 
 	}
 
 	@Override
+	@Transactional
 	public List<Identifiable> getAll()
 	{
-		@SuppressWarnings( "unchecked" )
-		List<Identifiable> ids = getHibernateTemplate().find( "from Identifiable" );
+		List<Identifiable> identifiables = getHibernateTemplate().loadAll( getPersistenceClass() );
 
-		if ( ids == null )
+		if ( identifiables == null )
 			return Collections.emptyList();
 
-		return ids;
+		return identifiables;
 	}
 
 }

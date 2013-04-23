@@ -6,6 +6,7 @@ import java.util.List;
 import org.gesis.ddi.ontology.LogicalDataSet;
 import org.gesis.ddi.persistence.dataAccess.LogicalDataSetDAO;
 import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 public class LogicalDataSetDAOHibernate extends GenericHibernateDAO<LogicalDataSet> implements LogicalDataSetDAO
 {
@@ -16,15 +17,15 @@ public class LogicalDataSetDAOHibernate extends GenericHibernateDAO<LogicalDataS
 	}
 
 	@Override
+	@Transactional
 	public List<LogicalDataSet> getAll()
 	{
-		@SuppressWarnings( "unchecked" )
-		List<LogicalDataSet> sets = getHibernateTemplate().find( "from LogicalDataSet" );
+		List<LogicalDataSet> logicalDataSets = getHibernateTemplate().loadAll( getPersistenceClass() );
 
-		if ( sets == null )
+		if ( logicalDataSets == null )
 			return Collections.emptyList();
 
-		return sets;
+		return logicalDataSets;
 	}
 
 }
