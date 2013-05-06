@@ -9,6 +9,7 @@ import org.gesis.ddi.persistence.dataAccess.DescriptiveStatisticsDAO;
 import org.gesis.ddi.persistence.dataAccess.IdentifiableDAO;
 import org.gesis.ddi.persistence.dataAccess.InstrumentDAO;
 import org.gesis.ddi.persistence.dataAccess.LogicalDataSetDAO;
+import org.gesis.ddi.persistence.dataAccess.PeriodOfTimeDAO;
 import org.gesis.ddi.persistence.dataAccess.QuestionDAO;
 import org.gesis.ddi.persistence.dataAccess.QuestionnaireDAO;
 import org.gesis.ddi.persistence.dataAccess.RepresentationDAO;
@@ -41,18 +42,19 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	private AnalysisUnitDAO analysisUnitDAO;
 	private CategoryStatisticsDAO categoryStatisticsDAO;
 	private DescriptiveStatisticsDAO descriptiveStatisticsDAO;
+	private PeriodOfTimeDAO periodOfTimeDAO;
 	private RepresentationDAO representationDAO;
 	private StudyGroupDAO studyGroupDAO;
 	private SummaryStatisticsDAO summaryStatisticsDAO;
 
 	// is going to be injected
-	public void setSessionFactory( SessionFactory sessionFactory )
+	public void setSessionFactory( final SessionFactory sessionFactory )
 	{
-		hibernateTemplate = new HibernateTemplate( sessionFactory );
+		this.hibernateTemplate = new HibernateTemplate( sessionFactory );
 	}
 
 	@Override
-	public <T> T getDAO( Class<T> daoClass )
+	public <T> T getDAO( final Class<T> daoClass )
 	{
 		try
 		{
@@ -76,15 +78,16 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 
 	}
 
+	@Override
 	public VariableDAO getVariableDAO()
 	{
-		if ( variableDAO == null )
-			variableDAO = new VariableDAOHibernate( hibernateTemplate );
+		if ( this.variableDAO == null )
+			this.variableDAO = new VariableDAOHibernate( this.hibernateTemplate );
 
-		return variableDAO;
+		return this.variableDAO;
 	}
 
-	public void setVariableDAO( VariableDAO variableDAO )
+	public void setVariableDAO( final VariableDAO variableDAO )
 	{
 		this.variableDAO = variableDAO;
 	}
@@ -92,13 +95,13 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	@Override
 	public QuestionDAO getQuestionDAO()
 	{
-		if ( questionDAO == null )
-			questionDAO = new QuestionDAOHibernate( hibernateTemplate );
+		if ( this.questionDAO == null )
+			this.questionDAO = new QuestionDAOHibernate( this.hibernateTemplate );
 
-		return questionDAO;
+		return this.questionDAO;
 	}
 
-	public void setQuestionDAO( QuestionDAO questionDAO )
+	public void setQuestionDAO( final QuestionDAO questionDAO )
 	{
 		this.questionDAO = questionDAO;
 	}
@@ -106,26 +109,27 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	@Override
 	public DataFileDAO getDataFileDAO()
 	{
-		if ( dataFileDAO == null )
-			dataFileDAO = new DataFileDAOHibernate( hibernateTemplate );
+		if ( this.dataFileDAO == null )
+			this.dataFileDAO = new DataFileDAOHibernate( this.hibernateTemplate );
 
-		return dataFileDAO;
+		return this.dataFileDAO;
 	}
 
-	public void setDataFileDAO( DataFileDAO dataFileDAO )
+	public void setDataFileDAO( final DataFileDAO dataFileDAO )
 	{
 		this.dataFileDAO = dataFileDAO;
 	}
 
+	@Override
 	public QuestionnaireDAO getQuestionnaireDAO()
 	{
-		if ( questionnaireDAO == null )
-			questionnaireDAO = new QuestionnaireDAOHibernate( hibernateTemplate );
+		if ( this.questionnaireDAO == null )
+			this.questionnaireDAO = new QuestionnaireDAOHibernate( this.hibernateTemplate );
 
-		return questionnaireDAO;
+		return this.questionnaireDAO;
 	}
 
-	public void setQuestionnaireDAO( QuestionnaireDAO questionnaireDAO )
+	public void setQuestionnaireDAO( final QuestionnaireDAO questionnaireDAO )
 	{
 		this.questionnaireDAO = questionnaireDAO;
 	}
@@ -133,13 +137,13 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	@Override
 	public LogicalDataSetDAO getLogicalDataSetDAO()
 	{
-		if ( logicalDataSetDAO == null )
-			logicalDataSetDAO = new LogicalDataSetDAOHibernate( hibernateTemplate );
+		if ( this.logicalDataSetDAO == null )
+			this.logicalDataSetDAO = new LogicalDataSetDAOHibernate( this.hibernateTemplate );
 
-		return logicalDataSetDAO;
+		return this.logicalDataSetDAO;
 	}
 
-	public void setLogicalDataSetDAO( LogicalDataSetDAO logicalDataSetDAO )
+	public void setLogicalDataSetDAO( final LogicalDataSetDAO logicalDataSetDAO )
 	{
 		this.logicalDataSetDAO = logicalDataSetDAO;
 	}
@@ -147,13 +151,13 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	@Override
 	public StudyDAO getStudyDAO()
 	{
-		if ( studyDAO == null )
-			studyDAO = new StudyHibernateDAO( hibernateTemplate );
+		if ( this.studyDAO == null )
+			this.studyDAO = new StudyHibernateDAO( this.hibernateTemplate );
 
-		return studyDAO;
+		return this.studyDAO;
 	}
 
-	public void setStudyDAO( StudyDAO studyDAO )
+	public void setStudyDAO( final StudyDAO studyDAO )
 	{
 		this.studyDAO = studyDAO;
 	}
@@ -161,13 +165,13 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	@Override
 	public IdentifiableDAO getIdentifiableDAO()
 	{
-		if ( identifiableDAO == null )
-			identifiableDAO = new IdentifiableDAOHibernate( hibernateTemplate );
+		if ( this.identifiableDAO == null )
+			this.identifiableDAO = new IdentifiableDAOHibernate( this.hibernateTemplate );
 
-		return identifiableDAO;
+		return this.identifiableDAO;
 	}
 
-	public void setIdentifiableDAO( IdentifiableDAO identifiableDAO )
+	public void setIdentifiableDAO( final IdentifiableDAO identifiableDAO )
 	{
 		this.identifiableDAO = identifiableDAO;
 	}
@@ -175,13 +179,13 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	@Override
 	public ConceptDAO getConceptDAO()
 	{
-		if ( conceptDAO == null )
-			conceptDAO = new ConceptDAOHibernate( hibernateTemplate );
+		if ( this.conceptDAO == null )
+			this.conceptDAO = new ConceptDAOHibernate( this.hibernateTemplate );
 
-		return conceptDAO;
+		return this.conceptDAO;
 	}
 
-	public void setConceptDAO( ConceptDAO conceptDAO )
+	public void setConceptDAO( final ConceptDAO conceptDAO )
 	{
 		this.conceptDAO = conceptDAO;
 	}
@@ -189,13 +193,13 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	@Override
 	public VariableDefinitionDAO getDataElementDAO()
 	{
-		if ( dataElementDAO == null )
-			dataElementDAO = new VariableDefinitionDAOHibernate( hibernateTemplate );
+		if ( this.dataElementDAO == null )
+			this.dataElementDAO = new VariableDefinitionDAOHibernate( this.hibernateTemplate );
 
-		return dataElementDAO;
+		return this.dataElementDAO;
 	}
 
-	public void setDataElementDAO( VariableDefinitionDAO dataElementDAO )
+	public void setDataElementDAO( final VariableDefinitionDAO dataElementDAO )
 	{
 		this.dataElementDAO = dataElementDAO;
 	}
@@ -203,13 +207,13 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	@Override
 	public InstrumentDAO getInstrumentDAO()
 	{
-		if ( instrumentDAO == null )
-			instrumentDAO = new InstrumentDAOHibernate( hibernateTemplate );
+		if ( this.instrumentDAO == null )
+			this.instrumentDAO = new InstrumentDAOHibernate( this.hibernateTemplate );
 
-		return instrumentDAO;
+		return this.instrumentDAO;
 	}
 
-	public void setInstrumentDAO( InstrumentDAO instrumentDAO )
+	public void setInstrumentDAO( final InstrumentDAO instrumentDAO )
 	{
 		this.instrumentDAO = instrumentDAO;
 	}
@@ -217,13 +221,13 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	@Override
 	public UniverseDAO getUniverseDAO()
 	{
-		if ( universeDAO == null )
-			universeDAO = new UniverseDAOHibernate( hibernateTemplate );
+		if ( this.universeDAO == null )
+			this.universeDAO = new UniverseDAOHibernate( this.hibernateTemplate );
 
-		return universeDAO;
+		return this.universeDAO;
 	}
 
-	public void setUniverseDAO( UniverseDAO universeDAO )
+	public void setUniverseDAO( final UniverseDAO universeDAO )
 	{
 		this.universeDAO = universeDAO;
 	}
@@ -231,55 +235,64 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	@Override
 	public AnalysisUnitDAO getAnalysisUnitDAO()
 	{
-		if ( analysisUnitDAO == null )
-			analysisUnitDAO = new AnalysisUnitDAOHibernate( hibernateTemplate );
+		if ( this.analysisUnitDAO == null )
+			this.analysisUnitDAO = new AnalysisUnitDAOHibernate( this.hibernateTemplate );
 
-		return analysisUnitDAO;
+		return this.analysisUnitDAO;
 	}
 
 	@Override
 	public CategoryStatisticsDAO getCategoryStatisticsDAO()
 	{
-		if ( categoryStatisticsDAO == null )
-			categoryStatisticsDAO = new CategoryStatisticsDAOHibernate( hibernateTemplate );
+		if ( this.categoryStatisticsDAO == null )
+			this.categoryStatisticsDAO = new CategoryStatisticsDAOHibernate( this.hibernateTemplate );
 
-		return categoryStatisticsDAO;
+		return this.categoryStatisticsDAO;
 	}
 
 	@Override
 	public DescriptiveStatisticsDAO getDescriptiveStatisticsDAO()
 	{
-		if ( descriptiveStatisticsDAO == null )
-			descriptiveStatisticsDAO = new DescriptiveStatisticsDAOHibernate( hibernateTemplate );
+		if ( this.descriptiveStatisticsDAO == null )
+			this.descriptiveStatisticsDAO = new DescriptiveStatisticsDAOHibernate( this.hibernateTemplate );
 
-		return descriptiveStatisticsDAO;
+		return this.descriptiveStatisticsDAO;
 	}
 
 	@Override
 	public RepresentationDAO getRepresentationDAO()
 	{
-		if ( representationDAO == null )
-			representationDAO = new RepresentationDAOHibernate( hibernateTemplate );
+		if ( this.representationDAO == null )
+			this.representationDAO = new RepresentationDAOHibernate( this.hibernateTemplate );
 
-		return representationDAO;
+		return this.representationDAO;
 	}
 
 	@Override
 	public StudyGroupDAO getStudyGroupDAO()
 	{
-		if ( studyGroupDAO == null )
-			studyGroupDAO = new StudyGroupDAOHibernate( hibernateTemplate );
+		if ( this.studyGroupDAO == null )
+			this.studyGroupDAO = new StudyGroupDAOHibernate( this.hibernateTemplate );
 
-		return studyGroupDAO;
+		return this.studyGroupDAO;
 	}
 
 	@Override
 	public SummaryStatisticsDAO getSummaryStatisticsDAO()
 	{
-		if ( summaryStatisticsDAO == null )
-			summaryStatisticsDAO = new SummaryStatisticsDAOHibernate( hibernateTemplate );
+		if ( this.summaryStatisticsDAO == null )
+			this.summaryStatisticsDAO = new SummaryStatisticsDAOHibernate( this.hibernateTemplate );
 
-		return summaryStatisticsDAO;
+		return this.summaryStatisticsDAO;
+	}
+
+	@Override
+	public PeriodOfTimeDAO getPeriodOfTimeDAO()
+	{
+		if ( this.periodOfTimeDAO == null )
+			this.periodOfTimeDAO = new PeriodOfTimeDAOHibernate( this.hibernateTemplate );
+
+		return this.periodOfTimeDAO;
 	}
 
 }
