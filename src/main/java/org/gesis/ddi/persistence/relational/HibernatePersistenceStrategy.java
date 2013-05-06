@@ -1,14 +1,20 @@
 package org.gesis.ddi.persistence.relational;
 
 import org.gesis.ddi.persistence.PersistenceStrategy;
+import org.gesis.ddi.persistence.dataAccess.AnalysisUnitDAO;
+import org.gesis.ddi.persistence.dataAccess.CategoryStatisticsDAO;
 import org.gesis.ddi.persistence.dataAccess.ConceptDAO;
 import org.gesis.ddi.persistence.dataAccess.DataFileDAO;
+import org.gesis.ddi.persistence.dataAccess.DescriptiveStatisticsDAO;
 import org.gesis.ddi.persistence.dataAccess.IdentifiableDAO;
 import org.gesis.ddi.persistence.dataAccess.InstrumentDAO;
 import org.gesis.ddi.persistence.dataAccess.LogicalDataSetDAO;
 import org.gesis.ddi.persistence.dataAccess.QuestionDAO;
 import org.gesis.ddi.persistence.dataAccess.QuestionnaireDAO;
+import org.gesis.ddi.persistence.dataAccess.RepresentationDAO;
 import org.gesis.ddi.persistence.dataAccess.StudyDAO;
+import org.gesis.ddi.persistence.dataAccess.StudyGroupDAO;
+import org.gesis.ddi.persistence.dataAccess.SummaryStatisticsDAO;
 import org.gesis.ddi.persistence.dataAccess.UniverseDAO;
 import org.gesis.ddi.persistence.dataAccess.VariableDAO;
 import org.gesis.ddi.persistence.dataAccess.VariableDefinitionDAO;
@@ -32,6 +38,12 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	private StudyDAO studyDAO;
 	private UniverseDAO universeDAO;
 	private VariableDAO variableDAO;
+	private AnalysisUnitDAO analysisUnitDAO;
+	private CategoryStatisticsDAO categoryStatisticsDAO;
+	private DescriptiveStatisticsDAO descriptiveStatisticsDAO;
+	private RepresentationDAO representationDAO;
+	private StudyGroupDAO studyGroupDAO;
+	private SummaryStatisticsDAO summaryStatisticsDAO;
 
 	// is going to be injected
 	public void setSessionFactory( SessionFactory sessionFactory )
@@ -178,7 +190,7 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	public VariableDefinitionDAO getDataElementDAO()
 	{
 		if ( dataElementDAO == null )
-			dataElementDAO = new DataElementDAOHibernate( hibernateTemplate );
+			dataElementDAO = new VariableDefinitionDAOHibernate( hibernateTemplate );
 
 		return dataElementDAO;
 	}
@@ -214,6 +226,60 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	public void setUniverseDAO( UniverseDAO universeDAO )
 	{
 		this.universeDAO = universeDAO;
+	}
+
+	@Override
+	public AnalysisUnitDAO getAnalysisUnitDAO()
+	{
+		if ( analysisUnitDAO == null )
+			analysisUnitDAO = new AnalysisUnitDAOHibernate( hibernateTemplate );
+
+		return analysisUnitDAO;
+	}
+
+	@Override
+	public CategoryStatisticsDAO getCategoryStatisticsDAO()
+	{
+		if ( categoryStatisticsDAO == null )
+			categoryStatisticsDAO = new CategoryStatisticsDAOHibernate( hibernateTemplate );
+
+		return categoryStatisticsDAO;
+	}
+
+	@Override
+	public DescriptiveStatisticsDAO getDescriptiveStatisticsDAO()
+	{
+		if ( descriptiveStatisticsDAO == null )
+			descriptiveStatisticsDAO = new DescriptiveStatisticsDAOHibernate( hibernateTemplate );
+
+		return descriptiveStatisticsDAO;
+	}
+
+	@Override
+	public RepresentationDAO getRepresentationDAO()
+	{
+		if ( representationDAO == null )
+			representationDAO = new RepresentationDAOHibernate( hibernateTemplate );
+
+		return representationDAO;
+	}
+
+	@Override
+	public StudyGroupDAO getStudyGroupDAO()
+	{
+		if ( studyGroupDAO == null )
+			studyGroupDAO = new StudyGroupDAOHibernate( hibernateTemplate );
+
+		return studyGroupDAO;
+	}
+
+	@Override
+	public SummaryStatisticsDAO getSummaryStatisticsDAO()
+	{
+		if ( summaryStatisticsDAO == null )
+			summaryStatisticsDAO = new SummaryStatisticsDAOHibernate( hibernateTemplate );
+
+		return summaryStatisticsDAO;
 	}
 
 }

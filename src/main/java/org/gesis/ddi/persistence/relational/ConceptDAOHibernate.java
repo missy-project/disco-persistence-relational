@@ -7,6 +7,12 @@ import org.gesis.ddi.persistence.dataAccess.ConceptDAO;
 import org.gesis.skos.Concept;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
+/**
+ * Hibernate implementation for Concept.
+ * 
+ * @author matthaeus
+ * 
+ */
 public class ConceptDAOHibernate extends GenericHibernateDAO<Concept> implements ConceptDAO
 {
 
@@ -18,8 +24,7 @@ public class ConceptDAOHibernate extends GenericHibernateDAO<Concept> implements
 	@Override
 	public List<Concept> getAll()
 	{
-		@SuppressWarnings( "unchecked" )
-		List<Concept> concepts = getHibernateTemplate().find( "from Concept" );
+		List<Concept> concepts = getHibernateTemplate().loadAll( getPersistenceClass() );
 
 		if ( concepts == null )
 			return Collections.emptyList();

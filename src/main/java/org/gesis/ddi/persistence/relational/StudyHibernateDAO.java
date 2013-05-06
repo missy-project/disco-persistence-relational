@@ -6,6 +6,7 @@ import java.util.List;
 import org.gesis.ddi.ontology.Study;
 import org.gesis.ddi.persistence.dataAccess.StudyDAO;
 import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 public class StudyHibernateDAO extends GenericHibernateDAO<Study> implements StudyDAO
 {
@@ -16,13 +17,13 @@ public class StudyHibernateDAO extends GenericHibernateDAO<Study> implements Stu
 	}
 
 	@Override
+	@Transactional
 	public List<Study> getAll()
 	{
-		@SuppressWarnings( "unchecked" )
-		List<Study> studies = getHibernateTemplate().find( "from Study" );
+		List<Study> studies = getHibernateTemplate().loadAll( getPersistenceClass() );
 
 		if ( studies == null )
-			Collections.emptyList();
+			return Collections.emptyList();
 
 		return studies;
 	}

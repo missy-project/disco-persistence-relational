@@ -4,6 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
 import java.util.List;
 
+import org.gesis.ddi.persistence.dataAccess.GenericDAO;
 import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,9 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @author matthaeus
  * 
  * @param <T>
- * @param <Id>
  */
-public abstract class GenericHibernateDAO<T>
+public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 {
 
 	/**
@@ -44,21 +44,45 @@ public abstract class GenericHibernateDAO<T>
 		this.sessionFactory = hibernateTemplate.getSessionFactory();
 	}
 
+	/**
+	 * The hibernate template used by this class.
+	 * 
+	 * @return
+	 */
 	public HibernateTemplate getHibernateTemplate()
 	{
 		return this.hibernateTemplate;
 	}
 
+	/**
+	 * The current session. In most cases <i>null</i> will be returned, since
+	 * the session is maintained by hibernate.
+	 * 
+	 * @return
+	 */
 	protected Session getCurrentSession()
 	{
 		return this.sessionFactory.getCurrentSession();
 	}
 
+	/**
+	 * Returns the generic type parameter, with which this object has been
+	 * instantiated.
+	 * 
+	 * @return
+	 */
 	public Class<T> getPersistenceClass()
 	{
 		return this.persistenceClass;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.gesis.ddi.persistence.dataAccess.GenericDAO#getById(java.lang.String,
+	 * boolean)
+	 */
 	@Transactional
 	public T getById( final String urn, final boolean lock )
 	{
@@ -66,9 +90,21 @@ public abstract class GenericHibernateDAO<T>
 		return entity;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.gesis.ddi.persistence.dataAccess.GenericDAO#getAll()
+	 */
 	@Transactional
 	public abstract List<T> getAll();
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.gesis.ddi.persistence.dataAccess.GenericDAO#getByExample(java.lang
+	 * .Object, java.lang.String[])
+	 */
 	@Transactional
 	public List<T> getByExample( final T exampleInstance, final String... excludeProperty )
 	{
@@ -90,6 +126,12 @@ public abstract class GenericHibernateDAO<T>
 		return list;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.gesis.ddi.persistence.dataAccess.GenericDAO#persist(java.lang.Object)
+	 */
 	@Transactional
 	public T persist( final T entity )
 	{
@@ -97,6 +139,12 @@ public abstract class GenericHibernateDAO<T>
 		return entity;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.gesis.ddi.persistence.dataAccess.GenericDAO#delete(java.lang.Object)
+	 */
 	@Transactional
 	public boolean delete( final T entity )
 	{

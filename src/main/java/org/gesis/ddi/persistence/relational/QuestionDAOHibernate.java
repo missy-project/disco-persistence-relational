@@ -6,6 +6,7 @@ import java.util.List;
 import org.gesis.ddi.ontology.Question;
 import org.gesis.ddi.persistence.dataAccess.QuestionDAO;
 import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 public class QuestionDAOHibernate extends GenericHibernateDAO<Question> implements QuestionDAO
 {
@@ -15,11 +16,10 @@ public class QuestionDAOHibernate extends GenericHibernateDAO<Question> implemen
 	}
 
 	@Override
+	@Transactional
 	public List<Question> getAll()
 	{
-
-		@SuppressWarnings("unchecked")
-		List<Question> questions = getHibernateTemplate().find( "from Question" );
+		List<Question> questions = getHibernateTemplate().loadAll( getPersistenceClass() );
 
 		if ( questions == null )
 			return Collections.emptyList();

@@ -4,7 +4,6 @@
    	<groupId>org.gesis</groupId>
    	<artifactId>ddi</artifactId>
    	<version>0.0.6-SNAPSHOT</version>
-   	<relativePath>../ddi/pom.xml</relativePath>
   </parent>
 
   <groupId>org.gesis.ddi</groupId>
