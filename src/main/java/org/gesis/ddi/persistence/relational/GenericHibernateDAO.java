@@ -96,7 +96,15 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	 * @see org.gesis.ddi.persistence.dataAccess.GenericDAO#getAll()
 	 */
 	@Transactional
-	public abstract List<T> getAll();
+	public List<T> getAll()
+	{
+		List<T> allObjects = getHibernateTemplate().loadAll( getPersistenceClass() );
+
+		if ( allObjects == null )
+			return Collections.emptyList();
+
+		return allObjects;
+	}
 
 	/*
 	 * (non-Javadoc)
