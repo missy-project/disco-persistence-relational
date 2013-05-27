@@ -304,7 +304,7 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 		if ( this.noteDAO == null )
 			this.noteDAO = new NoteDAOHibernate( this.hibernateTemplate );
 
-		return null;
+		return this.noteDAO;
 	}
 
 }
