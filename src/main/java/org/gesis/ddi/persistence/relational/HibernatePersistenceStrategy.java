@@ -30,7 +30,7 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 
 	private ConceptDAO conceptDAO;
 	private DataFileDAO dataFileDAO;
-	private VariableDefinitionDAO dataElementDAO;
+	private VariableDefinitionDAO variableDefinitionDAO;
 	private IdentifiableDAO identifiableDAO;
 	private InstrumentDAO instrumentDAO;
 	private LogicalDataSetDAO logicalDataSetDAO;
@@ -191,17 +191,17 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	}
 
 	@Override
-	public VariableDefinitionDAO getDataElementDAO()
+	public VariableDefinitionDAO getVariableDefinitionDAO()
 	{
-		if ( this.dataElementDAO == null )
-			this.dataElementDAO = new VariableDefinitionDAOHibernate( this.hibernateTemplate );
+		if ( this.variableDefinitionDAO == null )
+			this.variableDefinitionDAO = new VariableDefinitionDAOHibernate( this.hibernateTemplate );
 
-		return this.dataElementDAO;
+		return this.variableDefinitionDAO;
 	}
 
 	public void setDataElementDAO( final VariableDefinitionDAO dataElementDAO )
 	{
-		this.dataElementDAO = dataElementDAO;
+		this.variableDefinitionDAO = dataElementDAO;
 	}
 
 	@Override
