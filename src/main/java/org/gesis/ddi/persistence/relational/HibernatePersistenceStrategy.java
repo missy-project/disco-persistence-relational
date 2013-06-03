@@ -9,7 +9,6 @@ import org.gesis.ddi.persistence.dataAccess.DescriptiveStatisticsDAO;
 import org.gesis.ddi.persistence.dataAccess.IdentifiableDAO;
 import org.gesis.ddi.persistence.dataAccess.InstrumentDAO;
 import org.gesis.ddi.persistence.dataAccess.LogicalDataSetDAO;
-import org.gesis.ddi.persistence.dataAccess.NoteDAO;
 import org.gesis.ddi.persistence.dataAccess.PeriodOfTimeDAO;
 import org.gesis.ddi.persistence.dataAccess.QuestionDAO;
 import org.gesis.ddi.persistence.dataAccess.QuestionnaireDAO;
@@ -35,7 +34,6 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 	private IdentifiableDAO identifiableDAO;
 	private InstrumentDAO instrumentDAO;
 	private LogicalDataSetDAO logicalDataSetDAO;
-	private NoteDAO noteDAO;
 	private QuestionnaireDAO questionnaireDAO;
 	private QuestionDAO questionDAO;
 	private StudyDAO studyDAO;
@@ -296,15 +294,6 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy {
 			this.periodOfTimeDAO = new PeriodOfTimeDAOHibernate( this.hibernateTemplate );
 
 		return this.periodOfTimeDAO;
-	}
-
-	@Override
-	public NoteDAO getNoteDAO()
-	{
-		if ( this.noteDAO == null )
-			this.noteDAO = new NoteDAOHibernate( this.hibernateTemplate );
-
-		return this.noteDAO;
 	}
 
 }
