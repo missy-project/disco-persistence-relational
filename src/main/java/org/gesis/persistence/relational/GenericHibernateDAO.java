@@ -1,10 +1,10 @@
-package org.gesis.ddi.persistence.relational;
+package org.gesis.persistence.relational;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
 import java.util.List;
 
-import org.gesis.ddi.persistence.dataAccess.GenericDAO;
+import org.gesis.persistence.GenericDAO;
 import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

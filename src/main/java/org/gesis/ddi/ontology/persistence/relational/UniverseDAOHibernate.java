@@ -1,10 +1,11 @@
-package org.gesis.ddi.persistence.relational;
+package org.gesis.ddi.ontology.persistence.relational;
 
 import java.util.Collections;
 import java.util.List;
 
 import org.gesis.ddi.ontology.Universe;
-import org.gesis.ddi.persistence.dataAccess.UniverseDAO;
+import org.gesis.ddi.ontology.persistence.UniverseDAO;
+import org.gesis.persistence.relational.GenericHibernateDAO;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
 import org.springframework.orm.hibernate3.HibernateTemplate;

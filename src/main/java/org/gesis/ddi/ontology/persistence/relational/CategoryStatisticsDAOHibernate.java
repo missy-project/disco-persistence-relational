@@ -1,7 +1,8 @@
-package org.gesis.ddi.persistence.relational;
+package org.gesis.ddi.ontology.persistence.relational;
 
 import org.gesis.ddi.ontology.CategoryStatistics;
-import org.gesis.ddi.persistence.dataAccess.CategoryStatisticsDAO;
+import org.gesis.ddi.ontology.persistence.CategoryStatisticsDAO;
+import org.gesis.persistence.relational.GenericHibernateDAO;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**

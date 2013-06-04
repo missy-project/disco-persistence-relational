@@ -1,6 +1,7 @@
-package org.gesis.ddi.persistence.relational;
+package org.gesis.ddi.ontology.persistence.relational;
 
-import org.gesis.ddi.persistence.dataAccess.ConceptDAO;
+import org.gesis.ddi.ontology.persistence.ConceptDAO;
+import org.gesis.persistence.relational.GenericHibernateDAO;
 import org.gesis.skos.Concept;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
