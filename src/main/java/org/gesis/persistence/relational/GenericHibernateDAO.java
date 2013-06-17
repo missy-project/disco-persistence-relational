@@ -4,6 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
 import java.util.List;
 
+import org.gesis.ddi.Identifiable;
 import org.gesis.persistence.GenericDAO;
 import org.hibernate.LockMode;
 import org.hibernate.Session;
@@ -12,6 +13,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 /**
  * This is an abstract class which defines some necessary attributes and methods
@@ -83,6 +85,7 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	 * org.gesis.ddi.persistence.dataAccess.GenericDAO#getById(java.lang.String,
 	 * boolean)
 	 */
+	@Override
 	@Transactional
 	public T getById( final String urn, final boolean lock )
 	{
@@ -93,8 +96,40 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.gesis.persistence.GenericDAO#getByURN(java.lang.String)
+	 */
+	@Override
+	public T getByURN( final String urn )
+	{
+		if ( StringUtils.isEmpty( urn ) )
+			return null;
+
+		// create the Identifiable-object
+		Identifiable exampleIdentifiable = new Identifiable();
+		exampleIdentifiable.setURN( urn );
+
+		// Example-instance for hibernate
+		Example example = Example.create( exampleIdentifiable );
+
+		// the Criteria
+		DetachedCriteria criteria = DetachedCriteria.forClass( Identifiable.class );
+		criteria.add( example );
+
+		@SuppressWarnings( "unchecked" )
+		List<T> list = getHibernateTemplate().findByCriteria( criteria );
+
+		if ( list == null || list.size() == 0 )
+			return null;
+
+		return list.get( 0 );
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.gesis.ddi.persistence.dataAccess.GenericDAO#getAll()
 	 */
+	@Override
 	@Transactional
 	public List<T> getAll()
 	{
@@ -113,6 +148,7 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	 * org.gesis.ddi.persistence.dataAccess.GenericDAO#getByExample(java.lang
 	 * .Object, java.lang.String[])
 	 */
+	@Override
 	@Transactional
 	public List<T> getByExample( final T exampleInstance, final String... excludeProperty )
 	{
@@ -140,6 +176,7 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	 * @see
 	 * org.gesis.ddi.persistence.dataAccess.GenericDAO#persist(java.lang.Object)
 	 */
+	@Override
 	@Transactional
 	public T persist( final T entity )
 	{
@@ -153,6 +190,7 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	 * @see
 	 * org.gesis.ddi.persistence.dataAccess.GenericDAO#delete(java.lang.Object)
 	 */
+	@Override
 	@Transactional
 	public boolean delete( final T entity )
 	{
