@@ -87,9 +87,9 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	 */
 	@Override
 	@Transactional
-	public T getById( final String urn, final boolean lock )
+	public T getById( final String id, final boolean lock )
 	{
-		T entity = getHibernateTemplate().get( getPersistenceClass(), urn, lock ? LockMode.READ : LockMode.NONE );
+		T entity = getHibernateTemplate().get( getPersistenceClass(), id, lock ? LockMode.READ : LockMode.NONE );
 		return entity;
 	}
 
