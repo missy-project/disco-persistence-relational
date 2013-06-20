@@ -1,10 +1,10 @@
-package org.gesis.ddi.ontology.persistence.relational;
+package org.gesis.discovery.persistence.relational;
 
 import java.util.Collections;
 import java.util.List;
 
-import org.gesis.ddi.ontology.Universe;
-import org.gesis.ddi.ontology.persistence.UniverseDAO;
+import org.gesis.discovery.Universe;
+import org.gesis.discovery.persistence.UniverseDAO;
 import org.gesis.persistence.relational.GenericHibernateDAO;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;

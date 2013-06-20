@@ -1,7 +1,7 @@
-package org.gesis.ddi.ontology.persistence.relational;
+package org.gesis.discovery.persistence.relational;
 
-import org.gesis.ddi.ontology.LogicalDataSet;
-import org.gesis.ddi.ontology.persistence.LogicalDataSetDAO;
+import org.gesis.discovery.LogicalDataSet;
+import org.gesis.discovery.persistence.LogicalDataSetDAO;
 import org.gesis.persistence.relational.GenericHibernateDAO;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 

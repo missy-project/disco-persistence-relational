@@ -1,7 +1,7 @@
-package org.gesis.ddi.ontology.persistence.relational;
+package org.gesis.discovery.persistence.relational;
 
-import org.gesis.ddi.ontology.Variable;
-import org.gesis.ddi.ontology.persistence.VariableDAO;
+import org.gesis.discovery.Variable;
+import org.gesis.discovery.persistence.VariableDAO;
 import org.gesis.persistence.relational.GenericHibernateDAO;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
