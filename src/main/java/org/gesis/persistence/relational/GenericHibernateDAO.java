@@ -94,6 +94,19 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see
+	 * org.gesis.ddi.persistence.dataAccess.GenericDAO#getByURN(java.lang.String)
+	 */
+	@Override
+	@Transactional
+	public T getByURN( String urn )
+	{
+		return null;
+	}	
+	
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.gesis.ddi.persistence.dataAccess.GenericDAO#getAll()
 	 */
 	@Override
