@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.gesis.persistence.GenericDAO;
 import org.gesis.persistence.PersistableResource;
+import org.gesis.rdfs.Resource;
 import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +14,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 /**
  * This is an abstract class which defines some necessary attributes and methods
@@ -102,7 +104,24 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	@Transactional
 	public PersistableResource getByURN( final String urn )
 	{
-		return null;
+		if ( StringUtils.isEmpty( urn ) )
+			return null;
+
+		PersistableResource resource = new Resource();
+		resource.setURN( urn );
+
+		Example example = Example.create( resource );
+
+		DetachedCriteria criteria = DetachedCriteria.forClass( Resource.class );
+		criteria.add( example );
+
+		@SuppressWarnings( "unchecked" )
+		List<PersistableResource> list = getHibernateTemplate().findByCriteria( criteria );
+
+		if ( list == null || list.size() == 0 )
+			return null;
+
+		return list.get( 0 );
 	}	
 	
 	/*
