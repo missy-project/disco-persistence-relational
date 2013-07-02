@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.gesis.persistence.GenericDAO;
+import org.gesis.persistence.PersistableResource;
 import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -99,7 +100,7 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	 */
 	@Override
 	@Transactional
-	public T getByURN( String urn )
+	public PersistableResource getByURN( final String urn )
 	{
 		return null;
 	}	
