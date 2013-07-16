@@ -33,51 +33,51 @@ public class GenericHibernateDAOTest
 	@Before
 	public void init()
 	{
-		this.dao = this.persistenceStrategy.getStudyDAO();
-		assertNotNull( this.dao );
+		dao = persistenceStrategy.getStudyDAO();
+		assertNotNull( dao );
 
-		this.study = new Study();
-		this.study.setDcterms_title( LangString.createUKLangString( "new uk title" ) );
-		this.study.setURN( "agencyId:objectId:version" );
+		study = new Study();
+		study.setTitle( LangString.createUKLangString( "new uk title" ) );
+		study.setURN( "agencyId:objectId:version" );
 
-		this.dao.persist( this.study );
+		dao.persist( study );
 	}
 
 	@After
 	public void deleteStudies()
 	{
-		if ( this.study != null )
-			this.dao.delete( this.study );
+		if ( study != null )
+			dao.delete( study );
 	}
 
 	@Test
 	@Transactional
 	public void getAll()
 	{
-		List<Study> all = this.dao.getAll();
+		final List<Study> all = dao.getAll();
 		assertNotNull( all );
 		assertEquals( 1, all.size() );
 
-		Study persistedStudy = all.get( 0 );
+		final Study persistedStudy = all.get( 0 );
 		assertNotNull( persistedStudy );
-		assertEquals( "new uk title", persistedStudy.getDcterms_title().getEn() );
+		assertEquals( "new uk title", persistedStudy.getTitle().getEn() );
 	}
 
 	@Test
 	@Transactional
 	public void getById()
 	{
-		Study persistedStudy = this.dao.getById( this.study.getId(), false );
+		final Study persistedStudy = dao.getById( study.getId(), false );
 		assertNotNull( persistedStudy );
-		assertEquals( this.study.getDcterms_title().getEn(), persistedStudy.getDcterms_title().getEn() );
+		assertEquals( study.getTitle().getEn(), persistedStudy.getTitle().getEn() );
 	}
 
 	@Test
 	@Transactional
 	public void getByURN()
 	{
-		Study persistedStudy = (Study) this.dao.getByURN( "agencyId:objectId:version" );
+		final Study persistedStudy = (Study) dao.getByURN( "agencyId:objectId:version" );
 		assertNotNull( persistedStudy );
-		assertEquals( "new uk title", persistedStudy.getDcterms_title().getEn() );
+		assertEquals( "new uk title", persistedStudy.getTitle().getEn() );
 	}
 }

@@ -21,23 +21,24 @@ public class UniverseDAOHibernate extends GenericHibernateDAO<Universe> implemen
 
 	@Override
 	@Transactional
-	public List<Universe> getByExample( Universe exampleInstance, String... excludeProperty )
+	public List<Universe> getByExample( final Universe exampleInstance, final String... excludeProperty )
 	{
-		Example example = Example.create( exampleInstance );
+		final Example example = Example.create( exampleInstance );
 
 		if ( excludeProperty != null )
-			for ( String property : excludeProperty )
+			for ( final String property : excludeProperty )
 				example.excludeProperty( property );
 
-		DetachedCriteria criteria = DetachedCriteria.forClass( getPersistenceClass() );
+		final DetachedCriteria criteria = DetachedCriteria.forClass( getPersistenceClass() );
 		criteria.add( example );
 
-		if ( exampleInstance.getSkos_definition() != null )
-			criteria.createCriteria( "skos_definition" ).add( Example.create( exampleInstance.getSkos_definition() ) );
-		if ( exampleInstance.getSkos_prefLabel() != null )
-			criteria.createCriteria( "skos_prefLabel" ).add( Example.create( exampleInstance.getSkos_prefLabel() ) );
+		if ( exampleInstance.getDefinition() != null )
+			criteria.createCriteria( "definition" ).add( Example.create( exampleInstance.getDefinition() ) );
+		if ( exampleInstance.getPrefLabel() != null )
+			criteria.createCriteria( "prefLabel" ).add( Example.create( exampleInstance.getPrefLabel() ) );
 
 		@SuppressWarnings( "unchecked" )
+		final
 		List<Universe> list = getHibernateTemplate().findByCriteria( criteria );
 
 		if ( list == null )
