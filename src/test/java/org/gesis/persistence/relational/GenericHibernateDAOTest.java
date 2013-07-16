@@ -38,7 +38,8 @@ public class GenericHibernateDAOTest
 
 		study = new Study();
 		study.setTitle( LangString.createUKLangString( "new uk title" ) );
-		study.setURN( "agencyId:objectId:version" );
+		study.setAbstract( LangString.createDELangString( "new de abstract" ) );
+		study.setURN( "agencyId:study:version" );
 
 		dao.persist( study );
 	}
@@ -76,8 +77,9 @@ public class GenericHibernateDAOTest
 	@Transactional
 	public void getByURN()
 	{
-		final Study persistedStudy = (Study) dao.getByURN( "agencyId:objectId:version" );
+		final Study persistedStudy = (Study) dao.getByURN( "agencyId:study:version" );
 		assertNotNull( persistedStudy );
 		assertEquals( "new uk title", persistedStudy.getTitle().getEn() );
+		assertEquals( "new de abstract", persistedStudy.getAbstract().getDe() );
 	}
 }

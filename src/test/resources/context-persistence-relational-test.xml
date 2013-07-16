@@ -41,6 +41,7 @@
 				<value>org.gesis.foaf.Document</value>
 				
 				<value>org.gesis.rdf.LangString</value>
+				<value>org.gesis.rdf.List</value>
 
 				<value>org.gesis.rdfs.Datatype</value>
 				
