@@ -23,6 +23,7 @@ import org.gesis.discovery.persistence.relational.ConceptDAOHibernate;
 import org.gesis.discovery.persistence.relational.DataFileDAOHibernate;
 import org.gesis.discovery.persistence.relational.DescriptiveStatisticsDAOHibernate;
 import org.gesis.discovery.persistence.relational.InstrumentDAOHibernate;
+import org.gesis.discovery.persistence.relational.ListDAOHibernate;
 import org.gesis.discovery.persistence.relational.LogicalDataSetDAOHibernate;
 import org.gesis.discovery.persistence.relational.PeriodOfTimeDAOHibernate;
 import org.gesis.discovery.persistence.relational.QuestionDAOHibernate;
@@ -35,6 +36,7 @@ import org.gesis.discovery.persistence.relational.UniverseDAOHibernate;
 import org.gesis.discovery.persistence.relational.VariableDAOHibernate;
 import org.gesis.discovery.persistence.relational.VariableDefinitionDAOHibernate;
 import org.gesis.persistence.PersistenceStrategy;
+import org.gesis.rdf.persistence.ListDAO;
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
@@ -49,6 +51,7 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 	private DataFileDAO dataFileDAO;
 	private VariableDefinitionDAO variableDefinitionDAO;
 	private InstrumentDAO instrumentDAO;
+	private ListDAO listDAO;
 	private LogicalDataSetDAO logicalDataSetDAO;
 	private QuestionnaireDAO questionnaireDAO;
 	private QuestionDAO questionDAO;
@@ -149,6 +152,20 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 	public void setQuestionnaireDAO( final QuestionnaireDAO questionnaireDAO )
 	{
 		this.questionnaireDAO = questionnaireDAO;
+	}
+
+	@Override
+	public ListDAO getListDAO()
+	{
+		if ( this.listDAO == null )
+			this.listDAO = new ListDAOHibernate( hibernateTemplate );
+
+		return this.listDAO;
+	}
+
+	public void setListDAO( final ListDAO listDAO )
+	{
+		this.listDAO = listDAO;
 	}
 
 	@Override
