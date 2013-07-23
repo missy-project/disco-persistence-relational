@@ -1,4 +1,4 @@
-package org.gesis.discovery.persistence.relational;
+package org.gesis.rdf.persistence.relational;
 
 import org.gesis.persistence.relational.GenericHibernateDAO;
 import org.gesis.rdf.List;

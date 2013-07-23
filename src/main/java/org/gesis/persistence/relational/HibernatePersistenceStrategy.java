@@ -23,7 +23,6 @@ import org.gesis.discovery.persistence.relational.ConceptDAOHibernate;
 import org.gesis.discovery.persistence.relational.DataFileDAOHibernate;
 import org.gesis.discovery.persistence.relational.DescriptiveStatisticsDAOHibernate;
 import org.gesis.discovery.persistence.relational.InstrumentDAOHibernate;
-import org.gesis.discovery.persistence.relational.ListDAOHibernate;
 import org.gesis.discovery.persistence.relational.LogicalDataSetDAOHibernate;
 import org.gesis.discovery.persistence.relational.PeriodOfTimeDAOHibernate;
 import org.gesis.discovery.persistence.relational.QuestionDAOHibernate;
@@ -37,6 +36,9 @@ import org.gesis.discovery.persistence.relational.VariableDAOHibernate;
 import org.gesis.discovery.persistence.relational.VariableDefinitionDAOHibernate;
 import org.gesis.persistence.PersistenceStrategy;
 import org.gesis.rdf.persistence.ListDAO;
+import org.gesis.rdf.persistence.relational.ListDAOHibernate;
+import org.gesis.skos.persistence.OrderedCollectionDAO;
+import org.gesis.skos.persistence.relational.OrderedCollectionDAOHibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
@@ -61,6 +63,7 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 	private AnalysisUnitDAO analysisUnitDAO;
 	private CategoryStatisticsDAO categoryStatisticsDAO;
 	private DescriptiveStatisticsDAO descriptiveStatisticsDAO;
+	private OrderedCollectionDAO orderedCollectionDAO;
 	private PeriodOfTimeDAO periodOfTimeDAO;
 	private RepresentationDAO representationDAO;
 	private StudyGroupDAO studyGroupDAO;
@@ -323,6 +326,15 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 					this.hibernateTemplate);
 
 		return this.periodOfTimeDAO;
+	}
+
+	@Override
+	public OrderedCollectionDAO getOrderedCollectionDAO()
+	{
+		if ( this.orderedCollectionDAO == null )
+			this.orderedCollectionDAO = new OrderedCollectionDAOHibernate( this.hibernateTemplate );
+
+		return this.orderedCollectionDAO;
 	}
 
 }
