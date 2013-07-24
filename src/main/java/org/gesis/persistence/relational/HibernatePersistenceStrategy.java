@@ -2,7 +2,6 @@ package org.gesis.persistence.relational;
 
 import org.gesis.discovery.persistence.AnalysisUnitDAO;
 import org.gesis.discovery.persistence.CategoryStatisticsDAO;
-import org.gesis.discovery.persistence.ConceptDAO;
 import org.gesis.discovery.persistence.DataFileDAO;
 import org.gesis.discovery.persistence.DescriptiveStatisticsDAO;
 import org.gesis.discovery.persistence.InstrumentDAO;
@@ -19,7 +18,6 @@ import org.gesis.discovery.persistence.VariableDAO;
 import org.gesis.discovery.persistence.VariableDefinitionDAO;
 import org.gesis.discovery.persistence.relational.AnalysisUnitDAOHibernate;
 import org.gesis.discovery.persistence.relational.CategoryStatisticsDAOHibernate;
-import org.gesis.discovery.persistence.relational.ConceptDAOHibernate;
 import org.gesis.discovery.persistence.relational.DataFileDAOHibernate;
 import org.gesis.discovery.persistence.relational.DescriptiveStatisticsDAOHibernate;
 import org.gesis.discovery.persistence.relational.InstrumentDAOHibernate;
@@ -37,7 +35,11 @@ import org.gesis.discovery.persistence.relational.VariableDefinitionDAOHibernate
 import org.gesis.persistence.PersistenceStrategy;
 import org.gesis.rdf.persistence.ListDAO;
 import org.gesis.rdf.persistence.relational.ListDAOHibernate;
+import org.gesis.skos.persistence.ConceptDAO;
+import org.gesis.skos.persistence.ConceptSchemeDAO;
 import org.gesis.skos.persistence.OrderedCollectionDAO;
+import org.gesis.skos.persistence.relational.ConceptDAOHibernate;
+import org.gesis.skos.persistence.relational.ConceptSchemeDAOHibernate;
 import org.gesis.skos.persistence.relational.OrderedCollectionDAOHibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -50,6 +52,7 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 	private final String peristenceStrategyPostfix = "Hibernate";
 
 	private ConceptDAO conceptDAO;
+	private ConceptSchemeDAO conceptSchemeDAO;
 	private DataFileDAO dataFileDAO;
 	private VariableDefinitionDAO variableDefinitionDAO;
 	private InstrumentDAO instrumentDAO;
@@ -335,6 +338,15 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 			this.orderedCollectionDAO = new OrderedCollectionDAOHibernate( this.hibernateTemplate );
 
 		return this.orderedCollectionDAO;
+	}
+
+	@Override
+	public ConceptSchemeDAO getConceptSchemeDAO()
+	{
+		if ( this.conceptSchemeDAO == null )
+			this.conceptSchemeDAO = new ConceptSchemeDAOHibernate( this.hibernateTemplate );
+
+		return this.conceptSchemeDAO;
 	}
 
 }
