@@ -33,10 +33,8 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	 */
 	private final SessionFactory sessionFactory;
 	private final HibernateTemplate hibernateTemplate;
-	
-	private final Class<T> persistenceClass;
 
-	private Session session;
+	private final Class<T> persistenceClass;
 
 	@SuppressWarnings( "unchecked" )
 	public GenericHibernateDAO( final HibernateTemplate hibernateTemplate )
@@ -122,8 +120,8 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 			return null;
 
 		return list.get( 0 );
-	}	
-	
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
