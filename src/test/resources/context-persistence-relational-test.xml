@@ -29,6 +29,8 @@
 		
 		<property name="annotatedClasses">
 			<list>
+				<value>org.gesis.adms.Identifier</value>
+				
 				<value>org.gesis.dcterms.LicenseDocument</value>
 				<value>org.gesis.dcterms.Location</value>
 				<value>org.gesis.dcterms.MediaTypeOrExtend</value>
@@ -44,6 +46,7 @@
 				<value>org.gesis.rdf.List</value>
 
 				<value>org.gesis.rdfs.Datatype</value>
+				<value>org.gesis.rdfs.Resource</value>
 				
 				<value>org.gesis.skos.Concept</value>
 				<value>org.gesis.skos.ConceptScheme</value>
