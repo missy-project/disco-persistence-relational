@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.gesis.persistence.GenericDAO;
-import org.gesis.persistence.PersistableResource;
-import org.gesis.rdfs.Resource;
 import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -100,21 +98,13 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	 */
 	@Override
 	@Transactional
-	public PersistableResource getByURN( final String urn )
+	public <R> R getByURN( final Class<R> clazz, final String urn )
 	{
 		if ( StringUtils.isEmpty( urn ) )
 			return null;
 
-		PersistableResource resource = new Resource();
-		resource.setURN( urn );
-
-		Example example = Example.create( resource );
-
-		DetachedCriteria criteria = DetachedCriteria.forClass( Resource.class );
-		criteria.add( example );
-
 		@SuppressWarnings( "unchecked" )
-		List<PersistableResource> list = getHibernateTemplate().findByCriteria( criteria );
+		List<R> list = getHibernateTemplate().find( "from " + clazz.getName() + " where urn=?", urn );
 
 		if ( list == null || list.size() == 0 )
 			return null;
