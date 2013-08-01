@@ -77,7 +77,7 @@ public class GenericHibernateDAOTest
 	@Transactional
 	public void getByURN()
 	{
-		final Study persistedStudy = dao.getByURN( Study.class, "agencyId:study:version" );
+		final Study persistedStudy = (Study) dao.getByURN( "agencyId:study:version" );
 		assertNotNull( persistedStudy );
 		assertEquals( "new uk title", persistedStudy.getTitle().getEn() );
 		assertEquals( "new de abstract", persistedStudy.getAbstract().getDe() );
