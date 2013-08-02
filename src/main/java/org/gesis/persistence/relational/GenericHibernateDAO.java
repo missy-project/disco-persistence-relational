@@ -5,11 +5,14 @@ import java.util.Collections;
 import java.util.List;
 
 import org.gesis.persistence.GenericDAO;
+import org.gesis.persistence.PersistableResource;
 import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -26,6 +29,8 @@ import org.springframework.util.StringUtils;
 public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 {
 
+	private static Logger log = LoggerFactory.getLogger( Class.class );
+	
 	/**
 	 * Is going to be injected.
 	 */
@@ -168,6 +173,9 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	@Transactional
 	public T persist( final T entity )
 	{
+		if ( entity instanceof PersistableResource )
+			log.debug( "Persisting entity with id:" + ((PersistableResource) entity).getId() + " urn:" + ((PersistableResource) entity).getURN() );
+
 		getHibernateTemplate().saveOrUpdate( entity );
 		return entity;
 	}
