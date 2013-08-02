@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 
 import org.gesis.discovery.Study;
+import org.gesis.discovery.Variable;
 import org.gesis.discovery.persistence.StudyDAO;
 import org.gesis.persistence.PersistenceStrategy;
 import org.gesis.rdf.LangString;
@@ -40,6 +41,11 @@ public class GenericHibernateDAOTest
 		study.setTitle( LangString.createUKLangString( "new uk title" ) );
 		study.setAbstract( LangString.createDELangString( "new de abstract" ) );
 		study.setURN( "agencyId:study:version" );
+
+		Variable variable = new Variable();
+		variable.setURN( "agencyId:variable:version" );
+
+		study.addVariable( variable );
 
 		dao.persist( study );
 	}
@@ -81,5 +87,12 @@ public class GenericHibernateDAOTest
 		assertNotNull( persistedStudy );
 		assertEquals( "new uk title", persistedStudy.getTitle().getEn() );
 		assertEquals( "new de abstract", persistedStudy.getAbstract().getDe() );
+	}
+
+	@Test
+	public void getVariableByURN()
+	{
+		final Variable persistedVariable = dao.getByURN( Variable.class, "agencyId:variable:version" );
+		assertNotNull( persistedVariable );
 	}
 }
