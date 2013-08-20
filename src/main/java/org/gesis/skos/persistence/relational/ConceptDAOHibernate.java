@@ -1,5 +1,7 @@
 package org.gesis.skos.persistence.relational;
 
+import java.util.List;
+
 import org.gesis.persistence.relational.GenericHibernateDAO;
 import org.gesis.skos.Concept;
 import org.gesis.skos.persistence.ConceptDAO;
@@ -17,6 +19,13 @@ public class ConceptDAOHibernate extends GenericHibernateDAO<Concept> implements
 	public ConceptDAOHibernate(final HibernateTemplate hibernateTemplate)
 	{
 		super( hibernateTemplate );
+	}
+
+	@Override
+	public List<Concept> getByNotation( final String notation )
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
