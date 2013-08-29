@@ -37,12 +37,15 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	private final SessionFactory sessionFactory;
 	private final HibernateTemplate hibernateTemplate;
 
-	private final Class<T> persistenceClass;
+	private Class<T> persistenceClass;
 
 	@SuppressWarnings( "unchecked" )
 	public GenericHibernateDAO( final HibernateTemplate hibernateTemplate )
 	{
-		this.persistenceClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		if ( getClass().getGenericSuperclass() instanceof ParameterizedType )
+			this.persistenceClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		else
+			this.persistenceClass = null;
 
 		this.hibernateTemplate = hibernateTemplate;
 		this.sessionFactory = hibernateTemplate.getSessionFactory();
