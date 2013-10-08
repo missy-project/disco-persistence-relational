@@ -35,6 +35,8 @@ import org.gesis.discovery.persistence.relational.VariableDefinitionDAOHibernate
 import org.gesis.persistence.PersistenceStrategy;
 import org.gesis.rdf.persistence.ListDAO;
 import org.gesis.rdf.persistence.relational.ListDAOHibernate;
+import org.gesis.rdfs.persistence.ResourceDAO;
+import org.gesis.rdfs.persistence.relational.ResourceDAOHibernate;
 import org.gesis.skos.persistence.ConceptDAO;
 import org.gesis.skos.persistence.ConceptSchemeDAO;
 import org.gesis.skos.persistence.OrderedCollectionDAO;
@@ -44,6 +46,10 @@ import org.gesis.skos.persistence.relational.OrderedCollectionDAOHibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
+/**
+ * @author matthaeus
+ * 
+ */
 public class HibernatePersistenceStrategy implements PersistenceStrategy
 {
 
@@ -69,6 +75,7 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 	private OrderedCollectionDAO orderedCollectionDAO;
 	private PeriodOfTimeDAO periodOfTimeDAO;
 	private RepresentationDAO representationDAO;
+	private ResourceDAO resourceDAO;
 	private StudyGroupDAO studyGroupDAO;
 	private SummaryStatisticsDAO summaryStatisticsDAO;
 
@@ -347,6 +354,15 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 			this.conceptSchemeDAO = new ConceptSchemeDAOHibernate( this.hibernateTemplate );
 
 		return this.conceptSchemeDAO;
+	}
+
+	@Override
+	public ResourceDAO getResourceDAO()
+	{
+		if ( this.resourceDAO == null )
+			this.resourceDAO = new ResourceDAOHibernate( this.hibernateTemplate );
+
+		return this.resourceDAO;
 	}
 
 }
