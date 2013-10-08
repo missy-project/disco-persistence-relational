@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.gesis.persistence.GenericDAO;
 import org.gesis.persistence.PersistableResource;
+import org.gesis.rdf.LangString;
 import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,7 +31,7 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 {
 
 	private static Logger log = LoggerFactory.getLogger( Class.class );
-	
+
 	/**
 	 * Is going to be injected.
 	 */
@@ -113,6 +114,24 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 
 		@SuppressWarnings( "unchecked" )
 		List<R> list = getHibernateTemplate().find( "from " + clazz.getName() + " where urn=?", urn );
+
+		if ( list == null || list.size() == 0 )
+			return null;
+
+		return list.get( 0 );
+	}
+
+	@Override
+	public T getByPrefLabel( final Class<T> clazz, final LangString prefLabel )
+	{
+		if ( prefLabel == null )
+			return null;
+
+		if ( prefLabel.getDe() == null || prefLabel.getEn() == null || prefLabel.getFr() == null )
+			return null;
+
+		@SuppressWarnings( "unchecked" )
+		List<T> list = getHibernateTemplate().find( "FROM " + clazz.getName() + " c WHERE c.prefLabel.de = ? OR c.prefLabel.en = ? OR c.prefLabel.fr = ?", prefLabel.getDe(), prefLabel.getEn(), prefLabel.getFr() );
 
 		if ( list == null || list.size() == 0 )
 			return null;
