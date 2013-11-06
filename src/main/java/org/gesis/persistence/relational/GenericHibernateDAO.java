@@ -45,6 +45,8 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	{
 		if ( getClass().getGenericSuperclass() instanceof ParameterizedType )
 			this.persistenceClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		else if ( getClass().getSuperclass().getGenericSuperclass() instanceof ParameterizedType )
+			this.persistenceClass = (Class<T>) ((ParameterizedType) getClass().getSuperclass().getGenericSuperclass()).getActualTypeArguments()[0];
 		else
 			this.persistenceClass = null;
 
