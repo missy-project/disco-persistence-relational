@@ -17,7 +17,14 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<jdbc:embedded-database id="embeddedDataSource" />
+	<jdbc:embedded-database id="embeddedDataSource"/>
+	
+	<!-- Spring bean configuration. Tell Spring to bounce off BoneCP -->
+	<bean id="lazyDataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+	    <property name="targetDataSource">
+	        <ref bean="embeddedDataSource" />
+	    </property>
+	</bean>
 	
 	<!-- is responsible to deliver session objects for hibernate. should be used in a class that
 		actually persists the java objects, e.g. a specific DAO object. 
@@ -25,7 +32,8 @@
 		otherwise we would have had to instantiate the Configuration-class be our own.
 		-->
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource" ref="embeddedDataSource" />
+	
+		<property name="dataSource" ref="lazyDataSource" />
 		
 		<property name="annotatedClasses">
 			<list>
@@ -42,14 +50,16 @@
 				<value>org.gesis.foaf.Agent</value>
 				<value>org.gesis.foaf.Document</value>
 				
+				<value>org.gesis.org.Organization</value>
+				
 				<value>org.gesis.rdf.LangString</value>
 				<value>org.gesis.rdf.List</value>
 
 				<value>org.gesis.rdfs.Datatype</value>
-				<value>org.gesis.rdfs.Resource</value>
 				
 				<value>org.gesis.skos.Concept</value>
 				<value>org.gesis.skos.ConceptScheme</value>
+				<value>org.gesis.skos.OrderedCollection</value>
 
 				<value>org.gesis.discovery.AnalysisUnit</value>
 				<value>org.gesis.discovery.CategoryStatistics</value>
@@ -75,15 +85,17 @@
 				<prop key="hibernate.connection.url">jdbc:hsqldb:mem:;shutdown=false</prop>
 				<prop key="hibernate.connection.userkey">sa</prop>
 				<prop key="hibernate.connection.password"/>
-				<prop key="hibernate.connection.pool_size">10</prop>
+
+				<prop key="hibernate.connection.pool_size">50</prop>
 				<prop key="hibernate.connection.autocommit">true</prop>
+				
+				<prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
 
-				<prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop> 
-
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.format_sql">true</prop>
-		        <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop> 
+				<prop key="hibernate.hbm2ddl.import_files">initial_data.sql</prop>
+		        <prop key="hibernate.show_sql">true</prop>
+		        <prop key="hibernate.format_sql">true</prop>
 		    </props>
 		</property>
 	</bean>
