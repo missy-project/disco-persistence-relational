@@ -4,10 +4,18 @@ import org.gesis.persistence.PersistableResource;
 import org.hibernate.Hibernate;
 import org.hibernate.proxy.HibernateProxy;
 
+/**
+ * @author matthaeus
+ * 
+ */
 public class PersistenceUtil
 {
 
 	/**
+	 * This method retrieves all relations that are associated with the
+	 * <i>entity</i>-object so that they not need to be fetched via lazy-mode.
+	 * This is necessary sometimes when there is no Transactional-annotation
+	 * given.
 	 * 
 	 * @param entity
 	 * @return
