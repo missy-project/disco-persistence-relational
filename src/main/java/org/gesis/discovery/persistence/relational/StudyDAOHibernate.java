@@ -8,16 +8,13 @@ import org.gesis.persistence.relational.GenericHibernateDAO;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
- * This class is deprecated, since it does not satisfy the naming conventions
- * for implementations of the DAO-classes. Please use {@link StudyDAOHibernate}.
- * 
  * @author matthaeus
+ * 
  */
-@Deprecated
-public class StudyHibernateDAO extends GenericHibernateDAO<Study> implements StudyDAO
+public class StudyDAOHibernate extends GenericHibernateDAO<Study> implements StudyDAO
 {
 
-	public StudyHibernateDAO(final HibernateTemplate hibernateTemplate)
+	public StudyDAOHibernate(final HibernateTemplate hibernateTemplate)
 	{
 		super( hibernateTemplate );
 	}
