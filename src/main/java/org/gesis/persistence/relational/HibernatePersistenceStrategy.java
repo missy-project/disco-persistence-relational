@@ -35,7 +35,7 @@ import org.gesis.discovery.persistence.relational.SummaryStatisticsDAOHibernate;
 import org.gesis.discovery.persistence.relational.UniverseDAOHibernate;
 import org.gesis.discovery.persistence.relational.VariableDAOHibernate;
 import org.gesis.discovery.persistence.relational.VariableDefinitionDAOHibernate;
-import org.gesis.persistence.DAO;
+import org.gesis.persistence.InstantiableDAO;
 import org.gesis.persistence.PersistenceStrategy;
 import org.gesis.rdf.persistence.ListDAO;
 import org.gesis.rdf.persistence.relational.ListDAOHibernate;
@@ -125,40 +125,40 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 	@Autowired( required = false )
 	private VariableDefinitionDAO variableDefinitionDAO;
 
-	private final Map<String, DAO> daoMap = new HashMap<String, DAO>();
+	private final Map<String, InstantiableDAO> daoMap = new HashMap<String, InstantiableDAO>();
 
 	public HibernatePersistenceStrategy()
 	{
-		daoMap.put( "ConceptDAO", conceptDAO );
-		daoMap.put( "ConceptSchemeDAO", conceptSchemeDAO );
-		daoMap.put( "DataFileDAO", dataFileDAO );
-		daoMap.put( "VariableDefinitionDAO", variableDefinitionDAO );
-		daoMap.put( "InstrumentDAO", instrumentDAO );
-		daoMap.put( "ListDAO", listDAO );
-		daoMap.put( "LogicalDataSetDAO", logicalDataSetDAO );
-		daoMap.put( "QuestionnaireDAO", questionnaireDAO );
-		daoMap.put( "QuestionDAO", questionDAO );
-		daoMap.put( "StudyDAO", studyDAO );
-		daoMap.put( "UniverseDAO", universeDAO );
-		daoMap.put( "VariableDAO", variableDAO );
-		daoMap.put( "AnalysisUnitDAO", analysisUnitDAO );
-		daoMap.put( "CategoryStatisticsDAO", categoryStatisticsDAO );
-		daoMap.put( "DescriptiveStatisticsDAO", descriptiveStatisticsDAO );
-		daoMap.put( "OrderedCollectionDAO", orderedCollectionDAO );
-		daoMap.put( "PeriodOfTimeDAO", periodOfTimeDAO );
-		daoMap.put( "RepresentationDAO", representationDAO );
-		daoMap.put( "ResourceDAO", resourceDAO );
-		daoMap.put( "StudyGroupDAO", studyGroupDAO );
-		daoMap.put( "SummaryStatisticsDAO", summaryStatisticsDAO );
+		daoMap.put( ConceptDAO.class.getName(), conceptDAO );
+		daoMap.put( ConceptSchemeDAO.class.getName(), conceptSchemeDAO );
+		daoMap.put( DataFileDAO.class.getName(), dataFileDAO );
+		daoMap.put( VariableDefinitionDAO.class.getName(), variableDefinitionDAO );
+		daoMap.put( InstrumentDAO.class.getName(), instrumentDAO );
+		daoMap.put( ListDAO.class.getName(), listDAO );
+		daoMap.put( LogicalDataSetDAO.class.getName(), logicalDataSetDAO );
+		daoMap.put( QuestionnaireDAO.class.getName(), questionnaireDAO );
+		daoMap.put( QuestionDAO.class.getName(), questionDAO );
+		daoMap.put( StudyDAO.class.getName(), studyDAO );
+		daoMap.put( UniverseDAO.class.getName(), universeDAO );
+		daoMap.put( VariableDAO.class.getName(), variableDAO );
+		daoMap.put( AnalysisUnitDAO.class.getName(), analysisUnitDAO );
+		daoMap.put( CategoryStatisticsDAO.class.getName(), categoryStatisticsDAO );
+		daoMap.put( DescriptiveStatisticsDAO.class.getName(), descriptiveStatisticsDAO );
+		daoMap.put( OrderedCollectionDAO.class.getName(), orderedCollectionDAO );
+		daoMap.put( PeriodOfTimeDAO.class.getName(), periodOfTimeDAO );
+		daoMap.put( RepresentationDAO.class.getName(), representationDAO );
+		daoMap.put( ResourceDAO.class.getName(), resourceDAO );
+		daoMap.put( StudyGroupDAO.class.getName(), studyGroupDAO );
+		daoMap.put( SummaryStatisticsDAO.class.getName(), summaryStatisticsDAO );
 	}
 
 	@Override
-	public DAO getDAO( final Class<?> clazz )
+	public InstantiableDAO getDAO( final Class<?> clazz )
 	{
 		if ( clazz == null )
 			return null;
 
-		DAO dao = daoMap.get( clazz.getName() );
+		InstantiableDAO dao = daoMap.get( clazz.getName() );
 
 		if ( dao != null )
 			return dao;
@@ -170,10 +170,10 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 
 			Object instantiatedDao = BeanUtils.instantiateClass( namedClazz.getConstructor( HibernateTemplate.class ), this.hibernateTemplate );
 
-			if ( !(instantiatedDao instanceof DAO) )
+			if ( !(instantiatedDao instanceof InstantiableDAO) )
 				return null;
 
-			return (DAO) instantiatedDao;
+			return (InstantiableDAO) instantiatedDao;
 		}
 		catch (ClassNotFoundException e)
 		{
@@ -203,6 +203,25 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 	public void setSessionFactory( final SessionFactory sessionFactory )
 	{
 		this.hibernateTemplate = new HibernateTemplate( sessionFactory );
+	}
+
+	/**
+	 * Adds the given <i>dao</i>-object under the provided <i>name</i> to the
+	 * map of all DAOs.
+	 * 
+	 * @param name
+	 * @param dao
+	 */
+	@Override
+	public void registerDAO( final String name, final InstantiableDAO dao )
+	{
+		if ( name == null || name.trim().equals( "" ) )
+			return;
+
+		if ( dao == null )
+			return;
+
+		this.daoMap.put( name, dao );
 	}
 
 	@Override
