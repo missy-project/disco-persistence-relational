@@ -27,7 +27,7 @@ public class PersistenceUtil
 			return null;
 
 		if ( !(entity instanceof HibernateProxy) )
-			return null;
+			return entity;
 
 		Hibernate.initialize( entity );
 		entity = (R) ((HibernateProxy) entity).getHibernateLazyInitializer().getImplementation();
