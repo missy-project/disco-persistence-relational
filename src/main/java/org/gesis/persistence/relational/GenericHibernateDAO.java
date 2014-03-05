@@ -7,7 +7,6 @@ import java.util.List;
 import org.gesis.persistence.GenericDAO;
 import org.gesis.persistence.PersistableResource;
 import org.gesis.rdf.LangString;
-import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -95,9 +94,9 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	 */
 	@Override
 	@Transactional
-	public T getById( final String id, final boolean lock )
+	public T getById( final String id )
 	{
-		T entity = getHibernateTemplate().get( getPersistenceClass(), id, lock ? LockMode.READ : LockMode.NONE );
+		T entity = getHibernateTemplate().get( getPersistenceClass(), id );
 		return entity;
 	}
 
@@ -108,6 +107,7 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	 * org.gesis.ddi.persistence.dataAccess.GenericDAO#getByURN(java.lang.String)
 	 */
 	@Override
+	@Deprecated
 	@Transactional
 	public <R> R getByURN( final Class<R> clazz, final String urn )
 	{
@@ -124,7 +124,8 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	}
 
 	@Override
-	public T getByPrefLabel( final Class<T> clazz, final LangString prefLabel )
+	@Deprecated
+	public T getByPrefLabel( final LangString prefLabel )
 	{
 		if ( prefLabel == null )
 			return null;
@@ -133,7 +134,7 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 			return null;
 
 		@SuppressWarnings( "unchecked" )
-		List<T> list = getHibernateTemplate().find( "FROM " + clazz.getName() + " c WHERE c.prefLabel.de = ? OR c.prefLabel.en = ? OR c.prefLabel.fr = ?", prefLabel.getDe(), prefLabel.getEn(), prefLabel.getFr() );
+		List<T> list = getHibernateTemplate().find( "FROM " + getPersistenceClass().getName() + " c WHERE c.prefLabel.de = ? OR c.prefLabel.en = ? OR c.prefLabel.fr = ?", prefLabel.getDe(), prefLabel.getEn(), prefLabel.getFr() );
 
 		if ( list == null || list.size() == 0 )
 			return null;
