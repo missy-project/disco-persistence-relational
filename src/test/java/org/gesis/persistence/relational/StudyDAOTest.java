@@ -39,8 +39,8 @@ public class StudyDAOTest
 		assertNotNull( studyDAO );
 
 		study = new Study();
-		study.setTitle( LangString.createUKLangString( "new uk title" ) );
-		study.setAbstract( LangString.createDELangString( "new de abstract" ) );
+		study.setTitle( LangString.uk( "new uk title" ) );
+		study.setAbstract( LangString.de( "new de abstract" ) );
 		study.setURN( "agencyId:study:version" );
 
 		Variable variable = new Variable();
