@@ -11,6 +11,7 @@
   
   <properties>
   	<spring.version>3.2.2.RELEASE</spring.version>
+  	<disco-persistence-version>1.1.14</disco-persistence-version>
   </properties>
   
   <dependencies>
@@ -19,7 +20,7 @@
   	<dependency>
   		<groupId>org.gesis.disco</groupId>
   		<artifactId>disco-persistence-api</artifactId>
-  		<version>${project.version}</version>
+  		<version>${disco-persistence-version}</version>
   	</dependency>
   	
   	<dependency>
@@ -71,6 +72,13 @@
   		<version>${spring.version}</version>
   	</dependency>
   	
+  	<!-- for convenient date time parsing -->
+	<dependency>
+		<groupId>joda-time</groupId>
+		<artifactId>joda-time</artifactId>
+		<version>2.2</version>
+	</dependency>
+  	
   </dependencies>
   
     <build>
@@ -87,4 +95,5 @@
   	</plugins>
   </build>
   
+    <version>1.1.14</version>
 </project>
