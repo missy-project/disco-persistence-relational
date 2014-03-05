@@ -2,6 +2,7 @@ package org.gesis.persistence.relational;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -74,7 +75,7 @@ public class StudyDAOTest
 	@Transactional
 	public void getById()
 	{
-		final Study persistedStudy = studyDAO.getById( study.getId(), false );
+		final Study persistedStudy = studyDAO.getById( study.getId() );
 		assertNotNull( persistedStudy );
 		assertEquals( study.getTitle().getEn(), persistedStudy.getTitle().getEn() );
 	}
@@ -94,5 +95,16 @@ public class StudyDAOTest
 	{
 		final Variable persistedVariable = studyDAO.getByURN( Variable.class, "agencyId:variable:version" );
 		assertNotNull( persistedVariable );
+	}
+
+	@Test
+	public void getByTitle()
+	{
+		Study study = studyDAO.getByTitle( "Study 1", "2009" );
+		assertNotNull( study );
+
+		// does not exist
+		study = studyDAO.getByTitle( "Study xy", "2018" );
+		assertNull( study );
 	}
 }
