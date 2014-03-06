@@ -1,6 +1,5 @@
 package org.gesis.discovery.persistence.relational;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.gesis.discovery.AnalysisUnit;
@@ -24,18 +23,19 @@ public class AnalysisUnitDAOHibernate extends GenericHibernateDAO<AnalysisUnit> 
 	}
 
 	@Override
-	public List<AnalysisUnit> getByNotation( final String notation )
+	public AnalysisUnit getByNotation( final String notation )
 	{
 		if ( StringUtils.isEmpty( notation ) )
-			return Collections.emptyList();
+			return null;
 
 		@SuppressWarnings( "unchecked" )
 		List<AnalysisUnit> units = this.getHibernateTemplate().find( "from AnalysisUnit where notation=?", notation );
 
-		if ( units == null )
-			return Collections.emptyList();
+		if ( units == null || units.size() == 0 )
+			return null;
 
-		return units;
+		// there should be only one
+		return units.get( 0 );
 	}
 
 }
