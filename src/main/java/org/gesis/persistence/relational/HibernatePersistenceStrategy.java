@@ -18,7 +18,7 @@ import org.gesis.discovery.persistence.StudyGroupDAO;
 import org.gesis.discovery.persistence.SummaryStatisticsDAO;
 import org.gesis.discovery.persistence.UniverseDAO;
 import org.gesis.discovery.persistence.VariableDAO;
-import org.gesis.discovery.persistence.VariableDefinitionDAO;
+import org.gesis.discovery.persistence.RepresentedVariableDAO;
 import org.gesis.discovery.persistence.relational.AnalysisUnitDAOHibernate;
 import org.gesis.discovery.persistence.relational.CategoryStatisticsDAOHibernate;
 import org.gesis.discovery.persistence.relational.DataFileDAOHibernate;
@@ -34,7 +34,7 @@ import org.gesis.discovery.persistence.relational.StudyGroupDAOHibernate;
 import org.gesis.discovery.persistence.relational.SummaryStatisticsDAOHibernate;
 import org.gesis.discovery.persistence.relational.UniverseDAOHibernate;
 import org.gesis.discovery.persistence.relational.VariableDAOHibernate;
-import org.gesis.discovery.persistence.relational.VariableDefinitionDAOHibernate;
+import org.gesis.discovery.persistence.relational.RepresentedVariableDAOHibernate;
 import org.gesis.persistence.InstantiableDAO;
 import org.gesis.persistence.PersistenceStrategy;
 import org.gesis.rdf.persistence.ListDAO;
@@ -123,7 +123,7 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 	private VariableDAO variableDAO;
 
 	@Autowired( required = false )
-	private VariableDefinitionDAO variableDefinitionDAO;
+	private RepresentedVariableDAO variableDefinitionDAO;
 
 	private final Map<String, InstantiableDAO> daoMap = new HashMap<String, InstantiableDAO>();
 
@@ -132,7 +132,7 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 		daoMap.put( ConceptDAO.class.getName(), conceptDAO );
 		daoMap.put( ConceptSchemeDAO.class.getName(), conceptSchemeDAO );
 		daoMap.put( DataFileDAO.class.getName(), dataFileDAO );
-		daoMap.put( VariableDefinitionDAO.class.getName(), variableDefinitionDAO );
+		daoMap.put( RepresentedVariableDAO.class.getName(), variableDefinitionDAO );
 		daoMap.put( InstrumentDAO.class.getName(), instrumentDAO );
 		daoMap.put( ListDAO.class.getName(), listDAO );
 		daoMap.put( LogicalDataSetDAO.class.getName(), logicalDataSetDAO );
@@ -337,15 +337,15 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 	}
 
 	@Override
-	public VariableDefinitionDAO getVariableDefinitionDAO()
+	public RepresentedVariableDAO getVariableDefinitionDAO()
 	{
 		if ( this.variableDefinitionDAO == null )
-			this.variableDefinitionDAO = new VariableDefinitionDAOHibernate( this.hibernateTemplate );
+			this.variableDefinitionDAO = new RepresentedVariableDAOHibernate( this.hibernateTemplate );
 
 		return this.variableDefinitionDAO;
 	}
 
-	public void setDataElementDAO( final VariableDefinitionDAO dataElementDAO )
+	public void setDataElementDAO( final RepresentedVariableDAO dataElementDAO )
 	{
 		this.variableDefinitionDAO = dataElementDAO;
 	}

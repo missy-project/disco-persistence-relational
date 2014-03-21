@@ -17,7 +17,7 @@ import org.gesis.discovery.persistence.StudyGroupDAO;
 import org.gesis.discovery.persistence.SummaryStatisticsDAO;
 import org.gesis.discovery.persistence.UniverseDAO;
 import org.gesis.discovery.persistence.VariableDAO;
-import org.gesis.discovery.persistence.VariableDefinitionDAO;
+import org.gesis.discovery.persistence.RepresentedVariableDAO;
 import org.gesis.persistence.PersistenceStrategy;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,7 +58,7 @@ public class HibernatePersistenceStrategyTest
 		assertNotNull( persistenceStrategy.getDAO( SummaryStatisticsDAO.class ) );
 		assertNotNull( persistenceStrategy.getDAO( UniverseDAO.class ) );
 		assertNotNull( persistenceStrategy.getDAO( VariableDAO.class ) );
-		assertNotNull( persistenceStrategy.getDAO( VariableDefinitionDAO.class ) );
+		assertNotNull( persistenceStrategy.getDAO( RepresentedVariableDAO.class ) );
 	}
 
 	@Test
