@@ -9,6 +9,7 @@ import java.util.List;
 import org.gesis.discovery.Study;
 import org.gesis.discovery.Variable;
 import org.gesis.discovery.persistence.StudyDAO;
+import org.gesis.discovery.persistence.VariableDAO;
 import org.gesis.persistence.PersistenceStrategy;
 import org.gesis.rdf.LangString;
 import org.junit.After;
@@ -32,11 +33,16 @@ public class StudyDAOTest
 	private StudyDAO studyDAO;
 	private Study study;
 
+	private VariableDAO variableDAO;
+
 	@Before
 	public void init()
 	{
 		studyDAO = persistenceStrategy.getStudyDAO();
 		assertNotNull( studyDAO );
+
+		variableDAO = persistenceStrategy.getVariableDAO();
+		assertNotNull( variableDAO );
 
 		study = new Study();
 		study.setTitle( LangString.uk( "new uk title" ) );
@@ -84,7 +90,7 @@ public class StudyDAOTest
 	@Transactional
 	public void getByURN()
 	{
-		final Study persistedStudy = studyDAO.getByURN( Study.class, "agencyId:study:version" );
+		final Study persistedStudy = studyDAO.getByURN( "agencyId:study:version" );
 		assertNotNull( persistedStudy );
 		assertEquals( "new uk title", persistedStudy.getTitle().getEn() );
 		assertEquals( "new de abstract", persistedStudy.getAbstract().getDe() );
@@ -93,7 +99,7 @@ public class StudyDAOTest
 	@Test
 	public void getVariableByURN()
 	{
-		final Variable persistedVariable = studyDAO.getByURN( Variable.class, "agencyId:variable:version" );
+		final Variable persistedVariable = variableDAO.getByURN( "agencyId:variable:version" );
 		assertNotNull( persistedVariable );
 	}
 
