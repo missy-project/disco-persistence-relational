@@ -70,12 +70,12 @@
 				<value>org.gesis.discovery.Question</value>
 				<value>org.gesis.discovery.Questionnaire</value>
 				<value>org.gesis.discovery.Representation</value>
+				<value>org.gesis.discovery.RepresentedVariable</value>
 				<value>org.gesis.discovery.SummaryStatistics</value>
 				<value>org.gesis.discovery.Study</value>
 				<value>org.gesis.discovery.StudyGroup</value>
 				<value>org.gesis.discovery.Universe</value>
 				<value>org.gesis.discovery.Variable</value>
-				<value>org.gesis.discovery.VariableDefinition</value>
 			</list>
 		</property>
 		 
