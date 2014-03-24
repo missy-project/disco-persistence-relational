@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.gesis.discovery.AnalysisUnit;
 import org.gesis.discovery.persistence.AnalysisUnitDAO;
-import org.gesis.persistence.relational.GenericHibernateDAO;
+import org.gesis.persistence.relational.GenericResourceHibernateDAO;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.util.StringUtils;
 
@@ -14,7 +14,7 @@ import org.springframework.util.StringUtils;
  * @author matthaeus
  * 
  */
-public class AnalysisUnitDAOHibernate extends GenericHibernateDAO<AnalysisUnit> implements AnalysisUnitDAO
+public class AnalysisUnitDAOHibernate extends GenericResourceHibernateDAO<AnalysisUnit> implements AnalysisUnitDAO
 {
 
 	public AnalysisUnitDAOHibernate( final HibernateTemplate hibernateTemplate )

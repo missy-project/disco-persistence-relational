@@ -5,13 +5,17 @@ import java.util.List;
 
 import org.gesis.discovery.Universe;
 import org.gesis.discovery.persistence.UniverseDAO;
-import org.gesis.persistence.relational.GenericHibernateDAO;
+import org.gesis.persistence.relational.GenericResourceHibernateDAO;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
-public class UniverseDAOHibernate extends GenericHibernateDAO<Universe> implements UniverseDAO
+/**
+ * @author matthaeus
+ * 
+ */
+public class UniverseDAOHibernate extends GenericResourceHibernateDAO<Universe> implements UniverseDAO
 {
 
 	public UniverseDAOHibernate( final HibernateTemplate hibernateTemplate )

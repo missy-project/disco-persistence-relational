@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.gesis.discovery.Study;
 import org.gesis.discovery.persistence.StudyDAO;
-import org.gesis.persistence.relational.GenericHibernateDAO;
+import org.gesis.persistence.relational.GenericResourceHibernateDAO;
 import org.joda.time.DateTime;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
@@ -12,7 +12,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * @author matthaeus
  * 
  */
-public class StudyDAOHibernate extends GenericHibernateDAO<Study> implements StudyDAO
+public class StudyDAOHibernate extends GenericResourceHibernateDAO<Study> implements StudyDAO
 {
 
 	public StudyDAOHibernate(final HibernateTemplate hibernateTemplate)

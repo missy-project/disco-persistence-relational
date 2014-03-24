@@ -2,7 +2,7 @@ package org.gesis.discovery.persistence.relational;
 
 import org.gesis.discovery.DataFile;
 import org.gesis.discovery.persistence.DataFileDAO;
-import org.gesis.persistence.relational.GenericHibernateDAO;
+import org.gesis.persistence.relational.GenericResourceHibernateDAO;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
@@ -11,7 +11,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * @author matthaeus
  * 
  */
-public class DataFileDAOHibernate extends GenericHibernateDAO<DataFile> implements DataFileDAO
+public class DataFileDAOHibernate extends GenericResourceHibernateDAO<DataFile> implements DataFileDAO
 {
 
 	public DataFileDAOHibernate( final HibernateTemplate hibernateTemplate )

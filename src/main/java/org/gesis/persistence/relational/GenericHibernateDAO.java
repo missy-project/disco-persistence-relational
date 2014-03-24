@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.gesis.persistence.GenericDAO;
 import org.gesis.persistence.PersistableResource;
-import org.gesis.rdf.LangString;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -15,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 /**
  * This is an abstract class which defines some necessary attributes and methods
@@ -98,48 +96,6 @@ public abstract class GenericHibernateDAO<T> implements GenericDAO<T>
 	{
 		T entity = getHibernateTemplate().get( getPersistenceClass(), id );
 		return entity;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.gesis.ddi.persistence.dataAccess.GenericDAO#getByURN(java.lang.String)
-	 */
-	@Override
-	@Deprecated
-	@Transactional
-	public <R> R getByURN( final Class<R> clazz, final String urn )
-	{
-		if ( StringUtils.isEmpty( urn ) )
-			return null;
-
-		@SuppressWarnings( "unchecked" )
-		List<R> list = getHibernateTemplate().find( "from " + clazz.getName() + " where urn=?", urn );
-
-		if ( list == null || list.size() == 0 )
-			return null;
-
-		return list.get( 0 );
-	}
-
-	@Override
-	@Deprecated
-	public T getByPrefLabel( final LangString prefLabel )
-	{
-		if ( prefLabel == null )
-			return null;
-
-		if ( prefLabel.getDe() == null || prefLabel.getEn() == null || prefLabel.getFr() == null )
-			return null;
-
-		@SuppressWarnings( "unchecked" )
-		List<T> list = getHibernateTemplate().find( "FROM " + getPersistenceClass().getName() + " c WHERE c.prefLabel.de = ? OR c.prefLabel.en = ? OR c.prefLabel.fr = ?", prefLabel.getDe(), prefLabel.getEn(), prefLabel.getFr() );
-
-		if ( list == null || list.size() == 0 )
-			return null;
-
-		return list.get( 0 );
 	}
 
 	/*

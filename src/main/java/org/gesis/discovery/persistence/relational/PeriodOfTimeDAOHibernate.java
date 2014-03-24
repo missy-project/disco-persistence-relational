@@ -4,14 +4,14 @@ import java.util.Date;
 
 import org.gesis.dcterms.PeriodOfTime;
 import org.gesis.discovery.persistence.PeriodOfTimeDAO;
-import org.gesis.persistence.relational.GenericHibernateDAO;
+import org.gesis.persistence.relational.GenericResourceHibernateDAO;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
  * @author matthaeus
  * 
  */
-public class PeriodOfTimeDAOHibernate extends GenericHibernateDAO<PeriodOfTime> implements PeriodOfTimeDAO
+public class PeriodOfTimeDAOHibernate extends GenericResourceHibernateDAO<PeriodOfTime> implements PeriodOfTimeDAO
 {
 
 	public PeriodOfTimeDAOHibernate( final HibernateTemplate hibernateTemplate )
