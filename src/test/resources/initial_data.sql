@@ -2,8 +2,8 @@
 insert into Resource ( id ) values ( 'studyGroup1' );
 insert into Resource ( id ) values ( 'studyGroup2' );
 
-insert into Resource ( id ) values ( 'study1' );
-insert into Resource ( id ) values ( 'study2' );
+insert into Resource ( id, urn ) values ( 'study1', 'de.gesis:study1:0.1' );
+insert into Resource ( id, urn ) values ( 'study2', 'de.gesis:study2:0.1' );
 
 insert into Resource ( id ) values ( 'temporal1' );
 

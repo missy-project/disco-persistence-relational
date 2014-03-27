@@ -102,11 +102,10 @@ public class StudyDAOTest
 	@Transactional
 	public void getByURN()
 	{
-		final Study persistedStudy = studyDAO.getByURN( "agencyId:study:version" );
+		final Study persistedStudy = studyDAO.getByURN( "de.gesis:study1:0.1" );
 
 		assertNotNull( persistedStudy );
-		assertEquals( "new uk title", persistedStudy.getTitle().getEn() );
-		assertEquals( "new de abstract", persistedStudy.getAbstract().getDe() );
+		assertEquals( "Study 1", persistedStudy.getTitle().getEn() );
 	}
 
 	@Test
