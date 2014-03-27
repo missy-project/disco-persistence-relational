@@ -58,7 +58,7 @@ public abstract class GenericResourceHibernateDAO<T extends Resource> extends Ge
 		if ( prefLabel == null )
 			return null;
 
-		if ( prefLabel.getDe() == null || prefLabel.getEn() == null || prefLabel.getFr() == null )
+		if ( prefLabel.getDe() == null && prefLabel.getEn() == null && prefLabel.getFr() == null )
 			return null;
 
 		@SuppressWarnings( "unchecked" )
