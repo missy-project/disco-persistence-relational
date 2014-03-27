@@ -12,7 +12,6 @@ import org.gesis.discovery.persistence.StudyDAO;
 import org.gesis.discovery.persistence.VariableDAO;
 import org.gesis.persistence.PersistenceStrategy;
 import org.gesis.rdf.LangString;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +30,6 @@ public class StudyDAOTest
 	protected PersistenceStrategy persistenceStrategy;
 
 	private StudyDAO studyDAO;
-	private Study study;
 
 	private VariableDAO variableDAO;
 
@@ -43,25 +41,40 @@ public class StudyDAOTest
 
 		variableDAO = persistenceStrategy.getVariableDAO();
 		assertNotNull( variableDAO );
+	}
 
-		study = new Study();
+	@Test
+	@Transactional
+	public void insert()
+	{
+		// create Study
+		final Study study = new Study();
 		study.setTitle( LangString.uk( "new uk title" ) );
 		study.setAbstract( LangString.de( "new de abstract" ) );
 		study.setURN( "agencyId:study:version" );
 
+		// create Variable
 		Variable variable = new Variable();
 		variable.setURN( "agencyId:variable:version" );
 
 		study.addVariable( variable );
 
 		studyDAO.persist( study );
-	}
 
-	@After
-	public void deleteStudies()
-	{
-		if ( study != null )
-			studyDAO.delete( study );
+		// get persisted Study
+		Study persistedStudy = studyDAO.getByURN( "agencyId:study:version" );
+
+		assertNotNull( persistedStudy );
+		assertNotNull( persistedStudy.getTitle() );
+		assertEquals( "new uk title", persistedStudy.getTitle().getEn() );
+
+		assertNotNull( persistedStudy.getVariable() );
+		assertEquals( 1, persistedStudy.getVariable().size() );
+
+		studyDAO.delete( persistedStudy );
+
+		persistedStudy = studyDAO.getByURN( "agencyId:study:version" );
+		assertNull( persistedStudy );
 	}
 
 	@Test
@@ -69,21 +82,20 @@ public class StudyDAOTest
 	public void getAll()
 	{
 		final List<Study> all = studyDAO.getAll();
-		assertNotNull( all );
-		assertEquals( 1, all.size() );
 
-		final Study persistedStudy = all.get( 0 );
-		assertNotNull( persistedStudy );
-		assertEquals( "new uk title", persistedStudy.getTitle().getEn() );
+		assertNotNull( all );
+		assertEquals( 2, all.size() );
 	}
 
 	@Test
 	@Transactional
 	public void getById()
 	{
-		final Study persistedStudy = studyDAO.getById( study.getId() );
+		final Study persistedStudy = studyDAO.getById( "study1" );
+
 		assertNotNull( persistedStudy );
-		assertEquals( study.getTitle().getEn(), persistedStudy.getTitle().getEn() );
+		assertNotNull( persistedStudy.getTitle() );
+		assertEquals( "Study 1", persistedStudy.getTitle().getEn() );
 	}
 
 	@Test
@@ -91,16 +103,10 @@ public class StudyDAOTest
 	public void getByURN()
 	{
 		final Study persistedStudy = studyDAO.getByURN( "agencyId:study:version" );
+
 		assertNotNull( persistedStudy );
 		assertEquals( "new uk title", persistedStudy.getTitle().getEn() );
 		assertEquals( "new de abstract", persistedStudy.getAbstract().getDe() );
-	}
-
-	@Test
-	public void getVariableByURN()
-	{
-		final Variable persistedVariable = variableDAO.getByURN( "agencyId:variable:version" );
-		assertNotNull( persistedVariable );
 	}
 
 	@Test
