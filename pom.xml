@@ -8,6 +8,7 @@
 
   <groupId>org.gesis.disco</groupId>
   <artifactId>disco-persistence-relational</artifactId>
+  <version>1.2.0</version>
   
   <properties>
   	<spring.version>3.2.2.RELEASE</spring.version>
@@ -95,5 +96,4 @@
   	</plugins>
   </build>
   
-    <version>1.1.15</version>
 </project>
