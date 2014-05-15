@@ -11,7 +11,7 @@
   
   <properties>
   	<spring.version>3.2.2.RELEASE</spring.version>
-  	<disco-persistence-version>1.1.14</disco-persistence-version>
+  	<disco-persistence-version>1.2.0</disco-persistence-version>
   </properties>
   
   <dependencies>
