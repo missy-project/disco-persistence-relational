@@ -48,6 +48,8 @@ import org.gesis.skos.persistence.relational.ConceptDAOHibernate;
 import org.gesis.skos.persistence.relational.ConceptSchemeDAOHibernate;
 import org.gesis.skos.persistence.relational.OrderedCollectionDAOHibernate;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
@@ -57,6 +59,8 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  */
 public class HibernatePersistenceStrategy implements PersistenceStrategy
 {
+
+	private static Logger log = LoggerFactory.getLogger( HibernatePersistenceStrategy.class );
 
 	private HibernateTemplate hibernateTemplate;
 
@@ -121,7 +125,7 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 	private VariableDAO variableDAO;
 
 	@Autowired( required = false )
-	private RepresentedVariableDAO variableDefinitionDAO;
+	private RepresentedVariableDAO representedVariableDAO;
 
 	@Override
 	public InstantiableDAO getDAO( final Class<?> clazz )
@@ -132,12 +136,12 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 		try
 		{
 			// TODO ZL
-			MethodUtils.invokeMethod( this, "get" + clazz.getName() );
+			return (InstantiableDAO) MethodUtils.invokeMethod( this, "get" + clazz.getSimpleName() );
 		}
 		catch ( NoSuchMethodException e )
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error( "Could not find DAO instance for given class '{}'", clazz.getSimpleName() );
+			return null;
 		}
 		catch ( IllegalAccessException e )
 		{
@@ -151,7 +155,6 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 		}
 
 		return null;
-
 	}
 
 	/**
@@ -283,17 +286,17 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 	}
 
 	@Override
-	public RepresentedVariableDAO getVariableDefinitionDAO()
+	public RepresentedVariableDAO getRepresentedVariableDAO()
 	{
-		if ( this.variableDefinitionDAO == null )
-			this.variableDefinitionDAO = new RepresentedVariableDAOHibernate( this.hibernateTemplate );
+		if ( this.representedVariableDAO == null )
+			this.representedVariableDAO = new RepresentedVariableDAOHibernate( this.hibernateTemplate );
 
-		return this.variableDefinitionDAO;
+		return this.representedVariableDAO;
 	}
 
-	public void setDataElementDAO( final RepresentedVariableDAO dataElementDAO )
+	public void setRepresentedVariableDAO( final RepresentedVariableDAO representedVariableDAO )
 	{
-		this.variableDefinitionDAO = dataElementDAO;
+		this.representedVariableDAO = representedVariableDAO;
 	}
 
 	@Override

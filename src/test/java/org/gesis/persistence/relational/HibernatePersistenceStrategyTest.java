@@ -79,7 +79,7 @@ public class HibernatePersistenceStrategyTest
 		assertNotNull( persistenceStrategy.getSummaryStatisticsDAO() );
 		assertNotNull( persistenceStrategy.getUniverseDAO() );
 		assertNotNull( persistenceStrategy.getVariableDAO() );
-		assertNotNull( persistenceStrategy.getVariableDefinitionDAO() );
+		assertNotNull( persistenceStrategy.getRepresentedVariableDAO() );
 	}
 
 }
