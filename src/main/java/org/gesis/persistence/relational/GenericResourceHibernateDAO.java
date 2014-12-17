@@ -22,19 +22,22 @@ import org.springframework.util.StringUtils;
  */
 public abstract class GenericResourceHibernateDAO<T extends Resource> extends GenericHibernateDAO<T> implements GenericResourceDAO<T>
 {
+	private static Logger log = LoggerFactory.getLogger( Class.class );
+
+	public GenericResourceHibernateDAO()
+	{
+		super();
+	}
 
 	public GenericResourceHibernateDAO( final HibernateTemplate hibernateTemplate )
 	{
 		super( hibernateTemplate );
 	}
 
-	private static Logger log = LoggerFactory.getLogger( Class.class );
-
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.gesis.ddi.persistence.dataAccess.GenericDAO#getByURN(java.lang.String)
+	 * @see org.gesis.persistence.GenericResourceDAO#getByURN(java.lang.String)
 	 */
 	@Override
 	@Transactional
@@ -52,6 +55,13 @@ public abstract class GenericResourceHibernateDAO<T extends Resource> extends Ge
 		return list.get( 0 );
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.gesis.persistence.GenericResourceDAO#getByPrefLabel(org.gesis.rdf
+	 * .LangString)
+	 */
 	@Override
 	public T getByPrefLabel( final LangString prefLabel )
 	{
