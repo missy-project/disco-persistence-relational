@@ -1,8 +1,8 @@
 package org.gesis.persistence.relational;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.InvocationTargetException;
 
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.gesis.discovery.persistence.AnalysisUnitDAO;
 import org.gesis.discovery.persistence.CategoryStatisticsDAO;
 import org.gesis.discovery.persistence.DataFileDAO;
@@ -13,12 +13,12 @@ import org.gesis.discovery.persistence.PeriodOfTimeDAO;
 import org.gesis.discovery.persistence.QuestionDAO;
 import org.gesis.discovery.persistence.QuestionnaireDAO;
 import org.gesis.discovery.persistence.RepresentationDAO;
+import org.gesis.discovery.persistence.RepresentedVariableDAO;
 import org.gesis.discovery.persistence.StudyDAO;
 import org.gesis.discovery.persistence.StudyGroupDAO;
 import org.gesis.discovery.persistence.SummaryStatisticsDAO;
 import org.gesis.discovery.persistence.UniverseDAO;
 import org.gesis.discovery.persistence.VariableDAO;
-import org.gesis.discovery.persistence.RepresentedVariableDAO;
 import org.gesis.discovery.persistence.relational.AnalysisUnitDAOHibernate;
 import org.gesis.discovery.persistence.relational.CategoryStatisticsDAOHibernate;
 import org.gesis.discovery.persistence.relational.DataFileDAOHibernate;
@@ -29,12 +29,12 @@ import org.gesis.discovery.persistence.relational.PeriodOfTimeDAOHibernate;
 import org.gesis.discovery.persistence.relational.QuestionDAOHibernate;
 import org.gesis.discovery.persistence.relational.QuestionnaireDAOHibernate;
 import org.gesis.discovery.persistence.relational.RepresentationDAOHibernate;
+import org.gesis.discovery.persistence.relational.RepresentedVariableDAOHibernate;
 import org.gesis.discovery.persistence.relational.StudyDAOHibernate;
 import org.gesis.discovery.persistence.relational.StudyGroupDAOHibernate;
 import org.gesis.discovery.persistence.relational.SummaryStatisticsDAOHibernate;
 import org.gesis.discovery.persistence.relational.UniverseDAOHibernate;
 import org.gesis.discovery.persistence.relational.VariableDAOHibernate;
-import org.gesis.discovery.persistence.relational.RepresentedVariableDAOHibernate;
 import org.gesis.persistence.InstantiableDAO;
 import org.gesis.persistence.PersistenceStrategy;
 import org.gesis.rdf.persistence.ListDAO;
@@ -48,8 +48,6 @@ import org.gesis.skos.persistence.relational.ConceptDAOHibernate;
 import org.gesis.skos.persistence.relational.ConceptSchemeDAOHibernate;
 import org.gesis.skos.persistence.relational.OrderedCollectionDAOHibernate;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.BeanInstantiationException;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
@@ -125,103 +123,51 @@ public class HibernatePersistenceStrategy implements PersistenceStrategy
 	@Autowired( required = false )
 	private RepresentedVariableDAO variableDefinitionDAO;
 
-	private final Map<String, InstantiableDAO> daoMap = new HashMap<String, InstantiableDAO>();
-
-	public HibernatePersistenceStrategy()
-	{
-		daoMap.put( ConceptDAO.class.getName(), conceptDAO );
-		daoMap.put( ConceptSchemeDAO.class.getName(), conceptSchemeDAO );
-		daoMap.put( DataFileDAO.class.getName(), dataFileDAO );
-		daoMap.put( RepresentedVariableDAO.class.getName(), variableDefinitionDAO );
-		daoMap.put( InstrumentDAO.class.getName(), instrumentDAO );
-		daoMap.put( ListDAO.class.getName(), listDAO );
-		daoMap.put( LogicalDataSetDAO.class.getName(), logicalDataSetDAO );
-		daoMap.put( QuestionnaireDAO.class.getName(), questionnaireDAO );
-		daoMap.put( QuestionDAO.class.getName(), questionDAO );
-		daoMap.put( StudyDAO.class.getName(), studyDAO );
-		daoMap.put( UniverseDAO.class.getName(), universeDAO );
-		daoMap.put( VariableDAO.class.getName(), variableDAO );
-		daoMap.put( AnalysisUnitDAO.class.getName(), analysisUnitDAO );
-		daoMap.put( CategoryStatisticsDAO.class.getName(), categoryStatisticsDAO );
-		daoMap.put( DescriptiveStatisticsDAO.class.getName(), descriptiveStatisticsDAO );
-		daoMap.put( OrderedCollectionDAO.class.getName(), orderedCollectionDAO );
-		daoMap.put( PeriodOfTimeDAO.class.getName(), periodOfTimeDAO );
-		daoMap.put( RepresentationDAO.class.getName(), representationDAO );
-		daoMap.put( ResourceDAO.class.getName(), resourceDAO );
-		daoMap.put( StudyGroupDAO.class.getName(), studyGroupDAO );
-		daoMap.put( SummaryStatisticsDAO.class.getName(), summaryStatisticsDAO );
-	}
-
 	@Override
 	public InstantiableDAO getDAO( final Class<?> clazz )
 	{
 		if ( clazz == null )
 			return null;
 
-		InstantiableDAO dao = daoMap.get( clazz.getName() );
-
-		if ( dao != null )
-			return dao;
-
 		try
 		{
-			@SuppressWarnings( "static-access" )
-			Class<?> namedClazz = getClass().forName( clazz.getPackage().getName() + ".relational." + clazz.getSimpleName() + "Hibernate" );
-
-			Object instantiatedDao = BeanUtils.instantiateClass( namedClazz.getConstructor( HibernateTemplate.class ), this.hibernateTemplate );
-
-			if ( !(instantiatedDao instanceof InstantiableDAO) )
-				return null;
-
-			return (InstantiableDAO) instantiatedDao;
+			// TODO ZL
+			MethodUtils.invokeMethod( this, "get" + clazz.getName() );
 		}
-		catch (ClassNotFoundException e)
+		catch ( NoSuchMethodException e )
 		{
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-
-			return null;
 		}
-		catch (BeanInstantiationException e)
+		catch ( IllegalAccessException e )
 		{
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
 		}
-		catch (SecurityException e)
+		catch ( InvocationTargetException e )
 		{
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
-		}
-		catch (NoSuchMethodException e)
-		{
-			e.printStackTrace();
-			return null;
 		}
 
+		return null;
+
+	}
+
+	/**
+	 * Returns the SessionFactory used by the HibernateTemplate.
+	 * 
+	 * @return
+	 */
+	public SessionFactory getSessionFactory()
+	{
+		return this.hibernateTemplate.getSessionFactory();
 	}
 
 	// is going to be injected
 	public void setSessionFactory( final SessionFactory sessionFactory )
 	{
 		this.hibernateTemplate = new HibernateTemplate( sessionFactory );
-	}
-
-	/**
-	 * Adds the given <i>dao</i>-object under the provided <i>name</i> to the
-	 * map of all DAOs.
-	 * 
-	 * @param name
-	 * @param dao
-	 */
-	@Override
-	public void registerDAO( final String name, final InstantiableDAO dao )
-	{
-		if ( name == null || name.trim().equals( "" ) )
-			return;
-
-		if ( dao == null )
-			return;
-
-		this.daoMap.put( name, dao );
 	}
 
 	@Override
