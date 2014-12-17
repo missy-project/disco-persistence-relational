@@ -12,6 +12,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 public class RepresentationDAOHibernate extends GenericResourceHibernateDAO<Representation> implements RepresentationDAO
 {
 
+	public RepresentationDAOHibernate()
+	{
+		super();
+	}
+
 	public RepresentationDAOHibernate( final HibernateTemplate hibernateTemplate )
 	{
 		super( hibernateTemplate );

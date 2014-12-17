@@ -15,6 +15,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 public class StudyDAOHibernate extends GenericResourceHibernateDAO<Study> implements StudyDAO
 {
 
+	public StudyDAOHibernate()
+	{
+		super();
+	}
+
 	public StudyDAOHibernate(final HibernateTemplate hibernateTemplate)
 	{
 		super( hibernateTemplate );

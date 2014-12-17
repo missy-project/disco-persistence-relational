@@ -17,6 +17,11 @@ import org.springframework.util.StringUtils;
 public class AnalysisUnitDAOHibernate extends GenericResourceHibernateDAO<AnalysisUnit> implements AnalysisUnitDAO
 {
 
+	public AnalysisUnitDAOHibernate()
+	{
+		super();
+	}
+
 	public AnalysisUnitDAOHibernate( final HibernateTemplate hibernateTemplate )
 	{
 		super( hibernateTemplate );

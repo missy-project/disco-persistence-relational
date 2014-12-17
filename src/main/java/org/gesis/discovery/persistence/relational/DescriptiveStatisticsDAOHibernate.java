@@ -12,6 +12,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 public class DescriptiveStatisticsDAOHibernate extends GenericResourceHibernateDAO<DescriptiveStatistics> implements DescriptiveStatisticsDAO
 {
 
+	public DescriptiveStatisticsDAOHibernate()
+	{
+		super();
+	}
+
 	public DescriptiveStatisticsDAOHibernate( final HibernateTemplate hibernateTemplate )
 	{
 		super( hibernateTemplate );

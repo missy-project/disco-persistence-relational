@@ -2,11 +2,11 @@ package org.gesis.discovery.persistence.relational;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.gesis.discovery.Universe;
 import org.gesis.discovery.persistence.UniverseDAO;
 import org.gesis.persistence.relational.GenericResourceHibernateDAO;
 import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.util.StringUtils;
 
 /**
  * @author matthaeus
@@ -34,5 +34,4 @@ public class UniverseDAOHibernate extends GenericResourceHibernateDAO<Universe> 
 
 		return universes.get( 0 );
 	}
-
 }

@@ -12,6 +12,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 public class InstrumentDAOHibernate extends GenericResourceHibernateDAO<Instrument> implements InstrumentDAO
 {
 
+	public InstrumentDAOHibernate()
+	{
+		super();
+	}
+
 	public InstrumentDAOHibernate( final HibernateTemplate hibernateTemplate )
 	{
 		super( hibernateTemplate );

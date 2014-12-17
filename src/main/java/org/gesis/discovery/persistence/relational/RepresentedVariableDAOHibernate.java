@@ -12,6 +12,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 public class RepresentedVariableDAOHibernate extends GenericResourceHibernateDAO<RepresentedVariable> implements RepresentedVariableDAO
 {
 
+	public RepresentedVariableDAOHibernate()
+	{
+		super();
+	}
+
 	public RepresentedVariableDAOHibernate(final HibernateTemplate hibernateTemplate)
 	{
 		super( hibernateTemplate );

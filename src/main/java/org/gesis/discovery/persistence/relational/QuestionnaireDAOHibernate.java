@@ -12,6 +12,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 public class QuestionnaireDAOHibernate extends GenericResourceHibernateDAO<Questionnaire> implements QuestionnaireDAO
 {
 
+	public QuestionnaireDAOHibernate()
+	{
+		super();
+	}
+
 	public QuestionnaireDAOHibernate(final HibernateTemplate hibernateTemplate)
 	{
 		super( hibernateTemplate );

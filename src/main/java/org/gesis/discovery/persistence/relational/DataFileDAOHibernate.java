@@ -14,6 +14,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 public class DataFileDAOHibernate extends GenericResourceHibernateDAO<DataFile> implements DataFileDAO
 {
 
+	public DataFileDAOHibernate()
+	{
+		super();
+	}
+
 	public DataFileDAOHibernate( final HibernateTemplate hibernateTemplate )
 	{
 		super( hibernateTemplate );

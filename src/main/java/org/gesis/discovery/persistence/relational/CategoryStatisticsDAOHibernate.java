@@ -14,6 +14,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 public class CategoryStatisticsDAOHibernate extends GenericResourceHibernateDAO<CategoryStatistics> implements CategoryStatisticsDAO
 {
 
+	public CategoryStatisticsDAOHibernate()
+	{
+		super();
+	}
+
 	public CategoryStatisticsDAOHibernate( final HibernateTemplate hibernateTemplate )
 	{
 		super( hibernateTemplate );

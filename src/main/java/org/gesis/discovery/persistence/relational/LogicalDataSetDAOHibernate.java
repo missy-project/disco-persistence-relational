@@ -12,6 +12,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 public class LogicalDataSetDAOHibernate extends GenericResourceHibernateDAO<LogicalDataSet> implements LogicalDataSetDAO
 {
 
+	public LogicalDataSetDAOHibernate()
+	{
+		super();
+	}
+
 	public LogicalDataSetDAOHibernate(final HibernateTemplate hibernateTemplate)
 	{
 		super( hibernateTemplate );
