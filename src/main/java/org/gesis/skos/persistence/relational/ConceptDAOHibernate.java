@@ -18,6 +18,11 @@ import org.springframework.util.StringUtils;
 public class ConceptDAOHibernate extends GenericResourceHibernateDAO<Concept> implements ConceptDAO
 {
 
+	public ConceptDAOHibernate()
+	{
+		// TODO Auto-generated constructor stub
+	}
+
 	public ConceptDAOHibernate(final HibernateTemplate hibernateTemplate)
 	{
 		super( hibernateTemplate );

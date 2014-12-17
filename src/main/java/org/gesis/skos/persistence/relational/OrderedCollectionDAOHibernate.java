@@ -12,6 +12,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 public class OrderedCollectionDAOHibernate extends GenericResourceHibernateDAO<OrderedCollection> implements OrderedCollectionDAO
 {
 
+	public OrderedCollectionDAOHibernate()
+	{
+		super();
+	}
+
 	public OrderedCollectionDAOHibernate( final HibernateTemplate hibernateTemplate )
 	{
 		super( hibernateTemplate );

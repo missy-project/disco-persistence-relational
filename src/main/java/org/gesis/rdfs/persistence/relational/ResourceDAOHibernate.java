@@ -12,6 +12,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 public class ResourceDAOHibernate extends GenericResourceHibernateDAO<Resource> implements ResourceDAO
 {
 
+	public ResourceDAOHibernate()
+	{
+		super();
+	}
+
 	public ResourceDAOHibernate( final HibernateTemplate hibernateTemplate )
 	{
 		super( hibernateTemplate );

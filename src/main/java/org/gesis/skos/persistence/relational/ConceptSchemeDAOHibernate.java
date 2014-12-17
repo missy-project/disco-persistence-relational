@@ -12,6 +12,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 public class ConceptSchemeDAOHibernate extends GenericResourceHibernateDAO<ConceptScheme> implements ConceptSchemeDAO
 {
 
+	public ConceptSchemeDAOHibernate()
+	{
+		super();
+	}
+
 	public ConceptSchemeDAOHibernate( final HibernateTemplate hibernateTemplate )
 	{
 		super( hibernateTemplate );

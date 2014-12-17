@@ -12,6 +12,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 public class ListDAOHibernate extends GenericResourceHibernateDAO<List> implements ListDAO
 {
 
+	public ListDAOHibernate()
+	{
+		super();
+	}
+
 	public ListDAOHibernate( final HibernateTemplate hibernateTemplate )
 	{
 		super( hibernateTemplate );
