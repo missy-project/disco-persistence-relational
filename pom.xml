@@ -8,11 +8,11 @@
 
   <groupId>org.gesis.disco</groupId>
   <artifactId>disco-persistence-relational</artifactId>
-  <version>1.4.0</version>
+  <version>1.4.1</version>
   
   <properties>
   	<spring.version>3.2.2.RELEASE</spring.version>
-  	<disco-persistence-version>1.4.0</disco-persistence-version>
+  	<disco-persistence-version>1.4.1</disco-persistence-version>
   </properties>
   
   <dependencies>
